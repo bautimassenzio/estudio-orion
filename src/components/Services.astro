@@ -4,6 +4,9 @@ const services = [
     title: "Landing Pages & Sitios Web de Conversión",
     tagline: "Presencia digital comercial",
     description: "Diseñadas para captar clientes desde publicidad, redes o referencias directas. Páginas ultralivianas, pensadas para celulares y con llamados a la acción claros hacia tu WhatsApp o formulario.",
+    priceLabel: "Inversión desde",
+    price: "$120.000",
+    priceNote: "Pago único • Sin abono mensual",
     features: [
       "Diseño a medida responsivo y de carga instantánea",
       "Estructura comercial pensada para vender",
@@ -16,6 +19,9 @@ const services = [
     title: "Software & Sistemas de Gestión a Medida",
     tagline: "Optimización operativa",
     description: "Para empresas que necesitan digitalizar sus procesos: paneles de administración, turneros online, cotizadores de presupuestos, gestión de clientes o control de stock.",
+    priceLabel: "Inversión",
+    price: "A presupuesto",
+    priceNote: "Cotización según alcance y módulos",
     features: [
       "Acceso seguro con usuarios y roles",
       "Bases de datos en la nube seguras y respaldadas",
@@ -28,6 +34,9 @@ const services = [
     title: "Automatización & Integraciones Digitales",
     tagline: "Procesos en piloto automático",
     description: "Conectamos las herramientas que ya usás: cobros automáticos con Mercado Pago o Stripe, recordatorios por WhatsApp a tus clientes y sincronización de datos sin tareas manuales.",
+    priceLabel: "Inversión",
+    price: "A presupuesto",
+    priceNote: "Cotización según integraciones requeridas",
     features: [
       "Cobros digitales con confirmación instantánea",
       "Avisos automáticos a clientes vía WhatsApp o email",
@@ -74,6 +83,19 @@ const services = [
             <p class="text-sm text-zinc-400 leading-relaxed mb-6">
               {service.description}
             </p>
+
+            <!-- Bloque de Precio / Presupuesto -->
+            <div class="p-4 rounded-xl bg-black/50 border border-zinc-800/80 mb-6">
+              <span class="text-[11px] uppercase tracking-wider font-semibold text-zinc-400 block">
+                {service.priceLabel}
+              </span>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5 tracking-tight">
+                {service.price}
+              </div>
+              <span class="text-xs text-zinc-500 mt-1 block">
+                {service.priceNote}
+              </span>
+            </div>
 
             <div class="border-t border-zinc-800/80 pt-6 mb-8">
               <span class="text-xs font-semibold uppercase tracking-wider text-zinc-300 block mb-4">

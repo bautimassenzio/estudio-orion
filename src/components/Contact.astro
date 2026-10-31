@@ -22,6 +22,39 @@
           <div class="mt-8 space-y-4">
             <div class="flex items-center gap-4 text-zinc-300">
               <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.588 1.961.916 2.796.917 3.182 0 5.768-2.587 5.768-5.766 0-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.514-4.486 10-10 10-1.802 0-3.488-.479-4.945-1.312l-5.055 1.374 1.374-5.055c-.833-1.457-1.374-3.143-1.374-4.945 0-5.514 4.486-10 10-10s10 4.486 10 10z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-500 font-medium">WhatsApp directo</div>
+                <a 
+                  href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Quisiera%20hacer%20una%20consulta." 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="text-sm font-semibold text-white hover:text-zinc-300 transition-colors"
+                >
+                  +54 221 204-1711
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 text-zinc-300">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-500 font-medium">Correo institucional</div>
+                <a href="mailto:contacto@orionestudio.com.ar" class="text-sm font-semibold text-white hover:text-zinc-300 transition-colors">
+                  contacto@orionestudio.com.ar
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 text-zinc-300">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
@@ -35,25 +68,13 @@
             <div class="flex items-center gap-4 text-zinc-300">
               <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="text-xs text-zinc-500 font-medium">Correo institucional</div>
-                <div class="text-sm font-semibold text-white">contacto@orionestudio.com.ar</div>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4 text-zinc-300">
-              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </div>
               <div>
                 <div class="text-xs text-zinc-500 font-medium">Ubicación y modalidad</div>
-                <div class="text-sm font-semibold text-white">Buenos Aires, Argentina (Atención remota a todo el país)</div>
+                <div class="text-sm font-semibold text-white">La Plata, Buenos Aires (Atención remota a todo el país)</div>
               </div>
             </div>
           </div>
@@ -154,8 +175,7 @@
 
     const text = `¡Hola Orion Estudio! 👋%0A%0AMi nombre/empresa es: *${encodeURIComponent(name)}*%0ACorreo de contacto: *${encodeURIComponent(email)}*%0AInterés en: *${encodeURIComponent(service)}*%0A%0AObjetivo del proyecto:%0A${encodeURIComponent(message)}`;
     
-    // Configurá tu número de WhatsApp real acá (código de país + número, sin espacios ni signos)
-    const phone = "5491112345678"; 
+    const phone = "5492212041711"; 
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   });
 </script>
