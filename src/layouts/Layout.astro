@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Estudio Orión | Soluciones Informáticas & Desarrollo a Medida",
-  description = "Desarrollamos landing pages de alto impacto, sistemas de gestión y software a medida para potenciar negocios y empresas."
+  title = "Orion Estudio | Consultoría & Soluciones de Software",
+  description = "Desarrollo de software a medida, aplicaciones web y landing pages de alto rendimiento para negocios y empresas. Buenos Aires, Argentina."
 } = Astro.props;
 ---
 
@@ -17,35 +17,28 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Open Graph / Redes Sociales -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="Estudio Orión" />
+    <meta property="og:site_name" content="Orion Estudio" />
 
-    <!-- Fuentes Google: Plus Jakarta Sans / Inter -->
+    <!-- Fuente Inter / Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-gray-950 text-gray-100 min-h-screen relative selection:bg-cyan-500 selection:text-white">
-    <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] gradient-glow pointer-events-none z-0 blur-3xl"></div>
+  <body class="bg-black text-zinc-100 min-h-screen relative selection:bg-white selection:text-black">
+    <div class="fixed inset-0 bg-subtle-grid pointer-events-none z-0"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-spotlight pointer-events-none z-0"></div>
 
     <div class="relative z-10 flex flex-col min-h-screen">
       <slot />
     </div>
   </body>
 </html>
-
-<style is:global>
-  body {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  }
-</style>
-

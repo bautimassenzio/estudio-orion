@@ -2,75 +2,74 @@
 const faqs = [
   {
     q: "¿Cuánto tiempo demora el desarrollo de mi proyecto?",
-    a: "Para una landing page o sitio web estándar, el tiempo de entrega suele ser de 5 a 10 días hábiles una vez acordado el contenido y objetivos. Para sistemas o software a medida, establecemos un cronograma por etapas según la complejidad."
+    a: "Para una landing page o sitio comercial estándar, el tiempo de entrega típico es de 5 a 10 días hábiles una vez acordado el contenido y objetivos. Para sistemas de gestión o software a medida, establecemos un cronograma por etapas según la complejidad."
   },
   {
-    q: "¿Tengo que pagar costos fijos o mantenimiento mensual?",
-    a: "No obligatoriamente. Implementamos infraestructura moderna de alta velocidad que no te ata a costos fijos de servidores. Solo abonás tu dominio anual (ej. tuempresa.com.ar) y el mantenimiento es bajo demanda únicamente si pedís nuevas funciones."
+    q: "¿Tengo que pagar mantenimiento mensual obligatorio?",
+    a: "No obligatoriamente. Implementamos infraestructura moderna de alta velocidad que no te ata a costos fijos de servidores. Solo abonás tu dominio anual (ej. tuempresa.com.ar) y el mantenimiento es bajo demanda únicamente cuando requerís nuevas funciones."
   },
   {
     q: "¿Necesito tener conocimientos técnicos para gestionar mi solución?",
-    a: "En absoluto. Nosotros nos encargamos de toda la parte técnica, configuraciones y puesta en marcha. Si tu proyecto incluye panel de gestión o base de datos, te brindamos una capacitación sencilla y soporte continuo para usarlo."
+    a: "En absoluto. En Orion Estudio nos encargamos de toda la configuración técnica y puesta en marcha. Si tu proyecto incluye panel de gestión o base de datos, te brindamos una inducción sencilla y soporte continuo para usarlo sin complicaciones."
   },
   {
     q: "¿Cómo es el proceso de pago y contratación?",
-    a: "Trabajamos de forma transparente con un anticipo inicial para comenzar el desarrollo (50%) y el saldo restante (50%) una vez que el proyecto esté probado, aprobado y listo para publicarse en tu dominio."
+    a: "Trabajamos con un anticipo inicial del 50% para dar inicio formal al proyecto y planificar la arquitectura, y el 50% restante contra entrega, una vez que el sitio o sistema esté probado, aprobado y listo para publicarse."
   },
   {
     q: "¿Qué sucede si mi negocio crece y necesito sumar más funciones?",
-    a: "Esa es la gran ventaja de trabajar con Estudio Orión: todo el código y la arquitectura están diseñados para ser escalables. Podés empezar con una web simple y luego sumar paneles de clientes, turneros o pasarelas de pago sin tener que rehacer nada."
+    a: "Toda la base de código que desarrollamos es 100% escalable. Podés comenzar con una landing page o catálogo y luego sumar paneles de administración, turneros o pasarelas de pago sin tener que rehacer nada."
   },
   {
     q: "¿Trabajan únicamente en Buenos Aires o en todo el país?",
-    a: "Trabajamos de forma 100% remota con clientes de toda Argentina y el exterior, manteniendo reuniones ágiles por videollamada y comunicación directa por WhatsApp."
+    a: "Atendemos de forma remota a empresas y profesionales de toda Argentina y del exterior, con reuniones ágiles por videollamada y comunicación directa por WhatsApp."
   }
 ];
 ---
 
-<section id="faq" class="py-24 bg-gray-950/80 border-t border-gray-900 relative">
+<section id="faq" class="py-24 bg-zinc-950/60 border-t border-zinc-900 relative">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <h2 class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Preguntas Frecuentes</h2>
+      <h2 class="text-xs uppercase tracking-widest text-zinc-400 font-semibold">Preguntas Frecuentes</h2>
       <p class="mt-3 text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-        Despejá tus dudas antes de empezar.
+        Respuestas claras antes de empezar.
       </p>
-      <p class="mt-4 text-base sm:text-lg text-gray-400">
-        Todo claro y transparente desde el primer día, sin letra chica.
+      <p class="mt-4 text-base sm:text-lg text-zinc-400">
+        Información transparente desde el primer momento, sin letra chica ni términos engañosos.
       </p>
     </div>
 
-    <div class="space-y-4">
-      {faqs.map((faq, index) => (
-        <details class="group rounded-2xl bg-gray-900/40 border border-gray-800 p-6 transition-all duration-300 hover:border-gray-700 open:border-cyan-500/40 open:bg-gray-900/70">
-          <summary class="flex cursor-pointer items-center justify-between text-left font-bold text-white text-lg">
+    <div class="space-y-3.5">
+      {faqs.map((faq) => (
+        <details class="group rounded-2xl bg-zinc-950 border border-zinc-900 p-6 transition-colors hover:border-zinc-800 open:border-zinc-700 open:bg-zinc-900/40">
+          <summary class="flex cursor-pointer items-center justify-between text-left font-semibold text-white text-base sm:text-lg">
             <span>{faq.q}</span>
-            <span class="ml-4 shrink-0 rounded-full p-1.5 bg-gray-800 text-cyan-400 group-open:rotate-180 transition-transform duration-300">
+            <span class="ml-4 shrink-0 rounded-full p-1 bg-zinc-900 text-zinc-400 group-open:rotate-180 transition-transform duration-200">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
             </span>
           </summary>
-          <p class="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed pt-2 border-t border-gray-800/60">
+          <p class="mt-4 text-sm text-zinc-400 leading-relaxed pt-3 border-t border-zinc-900">
             {faq.a}
           </p>
         </details>
       ))}
     </div>
 
-    <!-- Banner de dudas adicionales -->
-    <div class="mt-12 text-center p-8 rounded-3xl bg-gradient-to-r from-cyan-950/30 to-indigo-950/30 border border-cyan-800/30">
-      <h3 class="text-lg font-bold text-white">¿Tenés una consulta específica sobre tu proyecto?</h3>
-      <p class="text-sm text-gray-400 mt-1 mb-5">Escribinos y te asesoramos sin costo ni compromiso.</p>
+    <!-- Banner sobrio para dudas -->
+    <div class="mt-12 text-center p-8 rounded-2xl bg-zinc-950 border border-zinc-800">
+      <h3 class="text-base font-bold text-white">¿Tenés una consulta puntual sobre tu proyecto?</h3>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-1 mb-5">Escribinos y te asesoramos sin costo ni compromiso.</p>
       <a
         href="#contacto"
-        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-cyan-600 hover:bg-cyan-500 transition-colors shadow-lg"
+        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold text-black bg-white hover:bg-zinc-200 transition-colors"
       >
-        <span>Hablar con un asesor</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <span>Consultar directamente</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
         </svg>
       </a>
     </div>
   </div>
 </section>
-
