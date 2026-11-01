@@ -1,0 +1,280 @@
+---
+import '../../styles/global.css';
+
+const planes = [
+  {
+    name: "Pase 3 Días / Semana",
+    price: "$32.000",
+    period: "por mes",
+    desc: "Ideal para combinar musculación o funcional a tu ritmo con seguimiento de profesores.",
+    features: [
+      "Acceso a sala de musculación y cardio",
+      "Rutina personalizada en app móvil",
+      "Horarios libres de 7:00 a 22:00 hs",
+      "Sin matrícula de inscripción"
+    ],
+    highlight: false
+  },
+  {
+    name: "Pase Libre Full",
+    price: "$42.000",
+    period: "por mes",
+    desc: "Acceso total e ilimitado a todas las disciplinas, clases grupales y área de musculación.",
+    features: [
+      "Acceso ilimitado todos los días",
+      "Funcional, CrossTraining, Boxeo y Spinning",
+      "Evaluación antropométrica mensual",
+      "15% OFF pagando trimestre en efectivo"
+    ],
+    highlight: true
+  },
+  {
+    name: "Plan Personalizado VIP",
+    price: "$68.000",
+    period: "por mes",
+    desc: "Entrenamiento guiado 1 a 1 con preparador físico y planificación nutricional adaptada.",
+    features: [
+      "Seguimiento exclusivo en cada sesión",
+      "Plan de suplementación y hábitos",
+      "Control de cargas y progreso quincenal",
+      "Cupos reducidos por turno"
+    ],
+    highlight: false
+  }
+];
+
+const disciplinas = [
+  { name: "Musculación & Fuerza", schedule: "Lun a Sáb • 07:00 a 22:00 hs", level: "Todos los niveles" },
+  { name: "Entrenamiento Funcional", schedule: "Lun, Mié y Vie • 09:00 / 18:00 / 19:30 hs", level: "Alta energía" },
+  { name: "Indoor Cycle / Spinning", schedule: "Mar y Jue • 19:00 y 20:00 hs", level: "Cardio intensivo" },
+  { name: "Movilidad & Stretching", schedule: "Mar y Jue • 10:00 y 17:00 hs", level: "Postura y salud" }
+];
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>KRONOS Fitness Center | Demo Orion Estudio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-stone-950 text-stone-100 min-h-screen antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- Barra Superior de Demo (Orion Estudio) -->
+    <div class="bg-black text-zinc-200 text-xs py-2.5 px-4 border-b border-zinc-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="/#demos" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-zinc-300 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Volver a Orion Estudio</span>
+        </a>
+        <span class="hidden sm:inline text-zinc-400">
+          Estás viendo la <strong class="text-amber-400">Demo Comercio, Fitness & Estética</strong>
+        </span>
+        <a 
+          href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Me%20gust%C3%B3%20el%20modelo%20de%20Comercio%20%2F%20Fitness%20y%20quiero%20cotizar%20una%20landing%20similar."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1 rounded-full bg-amber-500 text-black font-bold hover:bg-amber-400 transition"
+        >
+          Quiero este diseño
+        </a>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-stone-950/90 backdrop-blur-md border-b border-stone-800 sticky top-[41px] z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-amber-500 text-black flex items-center justify-center font-black text-lg">
+            K
+          </div>
+          <span class="text-xl font-black tracking-tight uppercase">
+            KRONOS <span class="text-amber-500">CLUB</span>
+          </span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-300">
+          <a href="#actividades" class="hover:text-amber-400 transition">Disciplinas</a>
+          <a href="#planes" class="hover:text-amber-400 transition">Planes y Precios</a>
+          <a href="#sede" class="hover:text-amber-400 transition">Sede y Horarios</a>
+        </nav>
+
+        <a 
+          href="#planes"
+          class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-sm font-extrabold transition"
+        >
+          Clase de prueba gratis
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="py-20 md:py-28 relative overflow-hidden border-b border-stone-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-6">
+          🔥 Inscripciones Abiertas • Primera Clase Sin Cargo
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight max-w-4xl mx-auto leading-[1.08] uppercase">
+          Entrená en un espacio pensado para <span class="text-amber-500">superar tus límites</span>.
+        </h1>
+
+        <p class="mt-6 text-lg sm:text-xl text-stone-400 max-w-2xl mx-auto leading-relaxed">
+          Más de 800 m² de equipamiento importado, climatización total y profesores de educación física en salón durante todo el día.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+          <a 
+            href="#planes"
+            class="px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-base transition shadow-lg shadow-amber-500/20"
+          >
+            Ver Planes y Precios
+          </a>
+          <a 
+            href="#sede"
+            class="px-8 py-4 rounded-xl bg-stone-900 hover:bg-stone-800 text-white border border-stone-800 font-bold text-base transition"
+          >
+            Reservar clase de prueba
+          </a>
+        </div>
+
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="p-5 rounded-2xl bg-stone-900/60 border border-stone-800">
+            <div class="text-3xl font-black text-amber-500">800 m²</div>
+            <div class="text-xs text-stone-400 mt-1 font-medium">De instalaciones</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-stone-900/60 border border-stone-800">
+            <div class="text-3xl font-black text-white">+45</div>
+            <div class="text-xs text-stone-400 mt-1 font-medium">Máquinas profesionales</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-stone-900/60 border border-stone-800">
+            <div class="text-3xl font-black text-amber-500">07 a 22hs</div>
+            <div class="text-xs text-stone-400 mt-1 font-medium">Horario corrido</div>
+          </div>
+          <div class="p-5 rounded-2xl bg-stone-900/60 border border-stone-800">
+            <div class="text-3xl font-black text-white">$0</div>
+            <div class="text-xs text-stone-400 mt-1 font-medium">Costo de matrícula</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Disciplinas y Horarios -->
+    <section id="actividades" class="py-20 bg-stone-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-500">Actividades</span>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-black uppercase tracking-tight">
+            Disciplinas y Horarios
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {disciplinas.map((d) => (
+            <div class="p-6 rounded-2xl bg-stone-900/70 border border-stone-800 flex items-center justify-between gap-4">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400 block mb-1">{d.level}</span>
+                <h3 class="text-lg font-extrabold text-white">{d.name}</h3>
+                <p class="text-xs text-stone-400 mt-1">{d.schedule}</p>
+              </div>
+              <a href="#sede" class="px-4 py-2 rounded-lg bg-stone-800 hover:bg-amber-500 hover:text-black text-xs font-bold transition shrink-0">
+                Anotarme
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Planes y Membresías -->
+    <section id="planes" class="py-20 bg-stone-900/40 border-y border-stone-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-500">Membresías</span>
+          <h2 class="mt-2 text-3xl sm:text-5xl font-black uppercase tracking-tight">
+            Elegí tu plan y empezá hoy
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          {planes.map((plan) => (
+            <div class={`relative p-8 rounded-3xl flex flex-col justify-between ${
+              plan.highlight 
+                ? 'bg-stone-900 border-2 border-amber-500 shadow-2xl' 
+                : 'bg-stone-950 border border-stone-800'
+            }`}>
+              {plan.highlight && (
+                <div class="absolute -top-3.5 left-8 px-3 py-0.5 rounded-full bg-amber-500 text-black text-[11px] font-black uppercase">
+                  Más Elegido
+                </div>
+              )}
+              <div>
+                <h3 class="text-xl font-extrabold text-white">{plan.name}</h3>
+                <p class="text-xs text-stone-400 mt-2 leading-relaxed">{plan.desc}</p>
+                <div class="my-6 pb-6 border-b border-stone-800">
+                  <span class="text-4xl font-black text-white">{plan.price}</span>
+                  <span class="text-xs text-stone-400 font-medium"> / {plan.period}</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                  {plan.features.map((f) => (
+                    <li class="flex items-center gap-2.5 text-sm text-stone-300">
+                      <span class="text-amber-500 font-bold">✓</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a 
+                href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Vi%20la%20Demo%20de%20Fitness%2FComercio%20y%20me%20interesa%20una%20web%20as%C3%AD%20para%20mi%20negocio."
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`w-full py-3.5 rounded-xl text-sm font-extrabold text-center transition ${
+                  plan.highlight 
+                    ? 'bg-amber-500 hover:bg-amber-400 text-black' 
+                    : 'bg-stone-800 hover:bg-stone-700 text-white'
+                }`}
+              >
+                Inscribirme por WhatsApp
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Cierre / Sede -->
+    <section id="sede" class="py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-amber-500 to-orange-500 text-black text-center">
+          <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight">
+            ¿Venís a probar una clase sin cargo?
+          </h2>
+          <p class="mt-3 text-sm sm:text-base font-medium max-w-xl mx-auto opacity-90">
+            Escribinos por WhatsApp, elegí el día y horario que te quede más cómodo y te esperamos en recepción.
+          </p>
+          <a 
+            href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Vi%20la%20Demo%20de%20Comercio%20y%20quiero%20consultar%20por%20una%20landing%20page."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-6 inline-block px-8 py-4 rounded-xl bg-black text-white font-extrabold text-sm hover:bg-stone-900 transition"
+          >
+            Pedir mi pase de prueba por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-black text-stone-500 py-8 text-center text-xs border-t border-stone-900">
+      <p>Página de demostración desarrollada por <a href="/" class="text-white font-bold underline">Orion Estudio</a> (orionestudio.com.ar)</p>
+    </footer>
+
+  </body>
+</html>
+

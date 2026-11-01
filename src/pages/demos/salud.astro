@@ -1,0 +1,354 @@
+---
+import '../../styles/global.css';
+
+const especialidades = [
+  {
+    title: "Odontología General y Estética",
+    desc: "Limpieza ultrasónica, blanqueamiento láser, carillas y rehabilitación oral sin dolor con tecnología digital.",
+    time: "Turnos en 48 hs"
+  },
+  {
+    title: "Ortodoncia y Alineadores Invisibles",
+    desc: "Corrección dental estética para adultos y adolescentes con planificación 3D y controles mensuales.",
+    time: "Diagnóstico inicial"
+  },
+  {
+    title: "Kinesiología y Fisioterapia",
+    desc: "Rehabilitación traumatológica, deportiva y postural personalizada con equipamiento de última generación.",
+    time: "Sesiones individuales"
+  },
+  {
+    title: "Implantología y Prótesis",
+    desc: "Recuperá la funcionalidad y estética de tu sonrisa con implantes importados de titanio e integración rápida.",
+    time: "Financiación disponible"
+  }
+];
+
+const reviews = [
+  {
+    name: "Carolina Méndez",
+    text: "Excelente atención desde que pedís el turno por WhatsApp. Puntuales, el consultorio impecable y me explicaron todo el tratamiento con mucha paciencia.",
+    service: "Ortodoncia Invisible"
+  },
+  {
+    name: "Lucas G. Pineda",
+    text: "Me atendí por una lesión de rodilla en kinesiología. En 5 sesiones volví a entrenar sin dolor. Súper recomendables en La Plata.",
+    service: "Rehabilitación Deportiva"
+  },
+  {
+    name: "María Laura Gómez",
+    text: "Fui por una urgencia odontológica y me dieron turno en el día. Muy cálidos y precios súper claros desde el principio.",
+    service: "Odontología General"
+  }
+];
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>Clínica Alborada | Demo Orion Estudio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen antialiased selection:bg-sky-600 selection:text-white">
+
+    <!-- Barra Superior de Demo (Orion Estudio) -->
+    <div class="bg-zinc-950 text-zinc-200 text-xs py-2.5 px-4 border-b border-zinc-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="/#demos" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-zinc-300 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Volver a Orion Estudio</span>
+        </a>
+        <span class="hidden sm:inline text-zinc-400">
+          Estás viendo la <strong class="text-white">Demo Salud & Profesionales</strong> (Diseño claro y limpio)
+        </span>
+        <a 
+          href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Me%20gust%C3%B3%20el%20modelo%20de%20Salud%20%2F%20Profesionales%20y%20quiero%20cotizar%20una%20landing%20similar."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition"
+        >
+          Quiero este diseño
+        </a>
+      </div>
+    </div>
+
+    <!-- Navbar del Consultorio -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-[41px] z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-extrabold text-xl shadow-sm">
+            A
+          </div>
+          <div>
+            <span class="text-lg font-extrabold tracking-tight text-slate-900 block leading-none">
+              Clínica Alborada
+            </span>
+            <span class="text-[11px] text-sky-700 font-semibold uppercase tracking-wider">
+              Odontología & Kinesiología
+            </span>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <a href="#especialidades" class="hover:text-sky-600 transition">Especialidades</a>
+          <a href="#nosotros" class="hover:text-sky-600 transition">El Consultorio</a>
+          <a href="#testimonios" class="hover:text-sky-600 transition">Pacientes</a>
+          <a href="#ubicacion" class="hover:text-sky-600 transition">Ubicación y Horarios</a>
+        </nav>
+
+        <a 
+          href="#ubicacion"
+          class="px-5 py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold shadow-sm transition"
+        >
+          Reservar Turno
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero en 2 Columnas -->
+    <section class="py-16 md:py-24 bg-gradient-to-b from-sky-50/70 to-slate-50 border-b border-slate-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-bold mb-6">
+            <span class="w-2 h-2 rounded-full bg-sky-600"></span>
+            <span>Atención por Obras Sociales, Prepagas y Particular</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            Cuidamos tu salud con atención cálida y <span class="text-sky-600">sin tiempos de espera</span>.
+          </h1>
+
+          <p class="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+            Un equipo de especialistas matriculados en el centro de La Plata. Reservá tu turno online por WhatsApp en menos de 2 minutos y recibí recordatorios automáticos.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a 
+              href="#ubicacion"
+              class="px-7 py-4 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm text-center shadow-lg shadow-sky-600/20 transition"
+            >
+              Solicitar turno por WhatsApp
+            </a>
+            <a 
+              href="#especialidades"
+              class="px-7 py-4 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-sm text-center transition"
+            >
+              Ver especialidades
+            </a>
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-slate-200 grid grid-cols-3 gap-4 max-w-lg">
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900">+3.500</div>
+              <div class="text-xs text-slate-500 font-medium">Pacientes atendidos</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900">4.9 ★</div>
+              <div class="text-xs text-slate-500 font-medium">Calificación en Google</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900">12 Años</div>
+              <div class="text-xs text-slate-500 font-medium">De trayectoria</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Derecha: Turnero Rápido Visual -->
+        <div class="lg:col-span-5">
+          <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 block">Disponibilidad inmediata</span>
+                <h2 class="text-xl font-extrabold text-slate-900 mt-0.5">Agenda de Turnos</h2>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                Abierto hoy
+              </span>
+            </div>
+
+            <div class="py-6 space-y-4">
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-bold text-slate-900">Consulta de Primera Vez</div>
+                  <div class="text-xs text-slate-500">Diagnóstico completo + Plan de tratamiento</div>
+                </div>
+                <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md">30 min</span>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-bold text-slate-900">Urgencias Odontológicas</div>
+                  <div class="text-xs text-slate-500">Atención prioritaria en el día</div>
+                </div>
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">Prioritario</span>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-bold text-slate-900">Sesión de Kinesiología</div>
+                  <div class="text-xs text-slate-500">Fisioterapia y rehabilitación motora</div>
+                </div>
+                <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md">45 min</span>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <a 
+                href="#ubicacion"
+                class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2 transition"
+              >
+                <span>Consultar horarios disponibles</span>
+              </a>
+              <p class="text-[11px] text-slate-400 text-center mt-3">
+                Atendemos IOMA, OSDE, Swiss Medical, Galeno, Medifé y particulares.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Especialidades -->
+    <section id="especialidades" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Nuestras Áreas</span>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Especialidades médicas pensadas para tu bienestar.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {especialidades.map((item) => (
+            <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-sky-300 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-xl font-bold text-slate-900">{item.title}</h3>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-100 text-sky-800">
+                    {item.time}
+                  </span>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-slate-200/80 flex justify-between items-center">
+                <span class="text-xs font-semibold text-slate-500">Profesionales matriculados</span>
+                <a href="#ubicacion" class="text-xs font-bold text-sky-600 hover:text-sky-800">
+                  Pedir turno →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Reseñas de Pacientes -->
+    <section id="testimonios" class="py-20 bg-slate-50 border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Opiniones Reales</span>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Lo que dicen nuestros pacientes.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {reviews.map((rev) => (
+            <div class="p-7 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="text-amber-400 text-base mb-3">★★★★★</div>
+                <p class="text-sm text-slate-600 leading-relaxed italic">
+                  "{rev.text}"
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-slate-100">
+                <div class="text-sm font-bold text-slate-900">{rev.name}</div>
+                <div class="text-xs text-sky-600 font-medium">{rev.service}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Ubicación y Contacto -->
+    <section id="ubicacion" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-sky-400">Turnos y Consultas</span>
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Reservá tu turno hoy mismo sin hacer filas.
+            </h2>
+            <p class="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              Escribinos por WhatsApp indicando qué especialidad necesitás y si contás con obra social o consulta particular. Te respondemos al instante.
+            </p>
+
+            <div class="mt-8 space-y-4 text-sm">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400 font-bold">📍</span>
+                <span>Av. 7 entre 47 y 48, Centro — La Plata, Buenos Aires</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400 font-bold">🕒</span>
+                <span>Lunes a Viernes de 8:30 a 20:00 hs | Sábados de 9:00 a 13:00 hs</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400 font-bold">📞</span>
+                <span>WhatsApp de Turnos: +54 221 204-1711</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white text-slate-900 rounded-2xl p-6 sm:p-8">
+            <h3 class="text-lg font-extrabold mb-4">Solicitar Turno Rápido</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Nombre y Apellido</label>
+                <input type="text" placeholder="Ej. Ana García" class="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Especialidad</label>
+                <select class="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-sm">
+                  <option>Odontología General</option>
+                  <option>Ortodoncia Invisible</option>
+                  <option>Kinesiología / Rehabilitación</option>
+                  <option>Consulta Particular / Urgencia</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Obra Social o Particular</label>
+                <input type="text" placeholder="Ej. OSDE / IOMA / Particular" class="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-200 text-sm" />
+              </div>
+              <a 
+                href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Vi%20la%20Demo%20de%20Salud%20y%20quiero%20una%20p%C3%A1gina%20as%C3%AD%20para%20mi%20consultorio%20o%20actividad."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm text-center transition shadow-md"
+              >
+                Confirmar Turno por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-400 py-8 text-center text-xs">
+      <p>Página de demostración desarrollada por <a href="/" class="text-white font-bold underline">Orion Estudio</a> (orionestudio.com.ar)</p>
+    </footer>
+
+  </body>
+</html>
+

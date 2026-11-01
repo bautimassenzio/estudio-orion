@@ -1,0 +1,251 @@
+---
+import '../../styles/global.css';
+
+const serviciosObra = [
+  {
+    code: "01",
+    title: "Viviendas Unifamiliares Llave en Mano",
+    desc: "Nos encargamos de todo el proceso: proyecto arquitectónico, planos municipales, dirección ejecutiva y construcción integral hasta la entrega de llaves."
+  },
+  {
+    code: "02",
+    title: "Remodelaciones y Ampliaciones Integrales",
+    desc: "Puesta en valor de viviendas, reformas de cocinas, baños y ampliaciones en planta alta con plazos cerrados por contrato."
+  },
+  {
+    code: "03",
+    title: "Locales Comerciales y Oficinas",
+    desc: "Adecuación rápida de espacios corporativos, vidrieras, instalaciones eléctricas industriales e iluminación comercial."
+  }
+];
+
+const obras = [
+  {
+    name: "Casa Bosque — City Bell",
+    type: "Vivienda Unifamiliar",
+    surface: "240 m² cubiertos",
+    year: "Entrega en 8 meses",
+    detail: "Hormigón visto, aberturas DVH de alta prestación y climatización por piso radiante."
+  },
+  {
+    name: "Oficinas Corporativas — La Plata Centro",
+    type: "Reforma Comercial",
+    surface: "180 m² cubiertos",
+    year: "Entrega en 60 días",
+    detail: "Cerramientos acústicos vidriados, puestos operativos y sala de directorio."
+  },
+  {
+    name: "Residencia Los Naranjos — Gonnet",
+    type: "Obra Llave en Mano",
+    surface: "310 m² cubiertos",
+    year: "Entrega en 10 meses",
+    detail: "Diseño moderno en dos plantas, quincho integrado y piscina revestida."
+  }
+];
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>VÉRTICE Arquitectura & Construcción | Demo Orion Estudio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-white text-slate-900 min-h-screen antialiased selection:bg-orange-600 selection:text-white">
+
+    <!-- Barra Superior de Demo (Orion Estudio) -->
+    <div class="bg-zinc-950 text-zinc-200 text-xs py-2.5 px-4 border-b border-zinc-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <a href="/#demos" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-zinc-300 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Volver a Orion Estudio</span>
+        </a>
+        <span class="hidden sm:inline text-zinc-400">
+          Estás viendo la <strong class="text-white">Demo Empresas, Construcción & Corporativo</strong>
+        </span>
+        <a 
+          href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Me%20gust%C3%B3%20el%20modelo%20Corporativo%20%2F%20Empresas%20y%20quiero%20cotizar%20una%20landing%20similar."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition"
+        >
+          Quiero este diseño
+        </a>
+      </div>
+    </div>
+
+    <!-- Header Corporativo -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-[41px] z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-orange-600 flex items-center justify-center font-black text-white text-base">
+            V
+          </div>
+          <div>
+            <span class="text-lg font-extrabold tracking-wider uppercase block leading-none">
+              GRUPO VÉRTICE
+            </span>
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest">
+              Arquitectura & Construcción
+            </span>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="#servicios" class="hover:text-white transition">Servicios</a>
+          <a href="#obras" class="hover:text-white transition">Obras Realizadas</a>
+          <a href="#presupuesto" class="hover:text-white transition">Presupuestos</a>
+        </nav>
+
+        <a 
+          href="#presupuesto"
+          class="px-5 py-2.5 bg-orange-600 hover:bg-orange-500 text-white text-xs uppercase tracking-wider font-bold transition"
+        >
+          Cotizar Proyecto
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="bg-slate-900 text-white py-20 md:py-28 border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 bg-orange-600/20 border border-orange-500/40 text-orange-400 text-xs font-bold uppercase tracking-widest mb-6">
+            Proyectos Llave en Mano • La Plata, City Bell y Gonnet
+          </span>
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            Proyectamos y construimos con <span class="text-orange-500">plazos y costos cerrados</span> por contrato.
+          </h1>
+          <p class="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed">
+            Más de 15 años desarrollando viviendas unifamiliares, reformas integrales e infraestructura comercial. Dirección técnica diaria y reportes de avance semanales.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-4">
+            <a 
+              href="#presupuesto"
+              class="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm uppercase tracking-wider text-center transition"
+            >
+              Solicitar Cómputo y Presupuesto
+            </a>
+            <a 
+              href="#obras"
+              class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm uppercase tracking-wider text-center transition"
+            >
+              Ver Obras Entregadas
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-16 pt-12 border-t border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white">+45</div>
+            <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Obras finalizadas</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-orange-500">12.500 m²</div>
+            <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Construidos</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white">100%</div>
+            <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Garantía escrita</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white">15 Años</div>
+            <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">De experiencia</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Soluciones Constructivas</span>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Ejecución integral de principio a fin.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {serviciosObra.map((s) => (
+            <div class="p-8 bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="text-2xl font-black text-orange-600 mb-4">{s.code}</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">{s.title}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+              </div>
+              <a href="#presupuesto" class="mt-8 text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-orange-600 inline-flex items-center gap-1">
+                <span>Consultar alcance →</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Obras Recientes -->
+    <section id="obras" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Portfolio de Proyectos</span>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Obras recientes entregadas.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {obras.map((obra) => (
+            <div class="border border-slate-200 bg-slate-50 p-7 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs font-bold uppercase text-orange-600 mb-2">
+                  <span>{obra.type}</span>
+                  <span class="text-slate-500">{obra.surface}</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900 mb-3">{obra.name}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">{obra.detail}</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-500">
+                <span>Plazo cumplido:</span>
+                <span class="text-slate-900 font-bold">{obra.year}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Presupuesto -->
+    <section id="presupuesto" class="py-20 bg-slate-900 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="text-xs font-bold uppercase tracking-widest text-orange-500">Asesoramiento Técnico</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">
+          Coordiná una reunión técnica con nuestros arquitectos.
+        </h2>
+        <p class="mt-4 text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+          Evaluamos tu lote, vivienda o local comercial y elaboramos un presupuesto detallado por etapas sin compromiso.
+        </p>
+        <a 
+          href="https://wa.me/5492212041711?text=%C2%A1Hola%20Orion%20Estudio!%20Vi%20la%20Demo%20de%20Empresas%2FConstrucci%C3%B3n%20y%20quiero%20una%20web%20as%C3%AD%20para%20mi%20empresa."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-block px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm uppercase tracking-wider transition"
+        >
+          Agendar Reunión por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-400 py-8 text-center text-xs">
+      <p>Página de demostración desarrollada por <a href="/" class="text-white font-bold underline">Orion Estudio</a> (orionestudio.com.ar)</p>
+    </footer>
+
+  </body>
+</html>
+
