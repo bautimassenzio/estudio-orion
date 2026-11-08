@@ -1,48 +1,56 @@
 ---
 const services = [
   {
-    title: "Landing Pages & Sitios Web de Conversión",
-    tagline: "Presencia digital comercial",
-    description: "Diseñadas para captar clientes desde publicidad, redes o referencias directas. Páginas ultralivianas, pensadas para celulares y con llamados a la acción claros hacia tu WhatsApp o formulario.",
-    priceLabel: "Inversión desde",
-    price: "$120.000",
-    priceNote: "Pago único • Sin abono mensual",
+    title: "Plan Web Administrada",
+    tagline: "Suscripción mensual",
+    description: "Tené tu página web profesional publicada y mantenida todos los meses sin pagar el costo inicial de desarrollo. Nosotros nos ocupamos de todo.",
+    priceLabel: "Sin inversión inicial de desarrollo",
+    price: "$35.000/mes",
+    priceNote: "La página permanece publicada mientras la suscripción esté activa. El dominio es del cliente y su renovación corre por su cuenta.",
     features: [
-      "Diseño a medida responsivo y de carga instantánea",
-      "Estructura comercial pensada para vender",
-      "Integración directa con WhatsApp y correo",
-      "Sin costos mensuales obligatorios de servidor"
+      "Diseño y desarrollo de una página web.",
+      "Diseño adaptable a todos los dispositivos.",
+      "Botón de contacto directo por WhatsApp.",
+      "Hosting y publicación incluidos.",
+      "Mantenimiento técnico básico.",
+      "Actualizaciones menores de textos e imágenes.",
+      "Soporte técnico."
     ],
+    cta: "Empezar con el Plan Mensual",
     popular: true
   },
   {
-    title: "Software & Sistemas de Gestión a Medida",
-    tagline: "Optimización operativa",
-    description: "Para empresas que necesitan digitalizar sus procesos: paneles de administración, turneros online, cotizadores de presupuestos, gestión de clientes o control de stock.",
-    priceLabel: "Inversión",
+    title: "Webs & E-commerce (Pago Único)",
+    tagline: "Modalidad llave en mano",
+    description: "Para quienes prefieren abonar el desarrollo por única vez o requieren tiendas online completas con catálogo de productos y carrito de compras.",
+    priceLabel: "Desarrollo pago único",
     price: "A presupuesto",
-    priceNote: "Cotización según alcance y módulos",
+    priceNote: "Cotización personalizada según el alcance del sitio.",
     features: [
-      "Acceso seguro con usuarios y roles",
-      "Bases de datos en la nube seguras y respaldadas",
-      "Desarrollado exactamente según tus reglas de trabajo",
-      "Reportes claros de la actividad de tu negocio"
+      "Diseño y desarrollo 100% a medida.",
+      "Landing pages extensas, sitios corporativos o e-commerce.",
+      "Integración directa con WhatsApp, mapas y redes.",
+      "Optimización de velocidad de carga y posicionamiento.",
+      "Sin abonos mensuales obligatorios."
     ],
+    cta: "Pedir presupuesto a medida",
     popular: false
   },
   {
-    title: "Automatización & Integraciones Digitales",
-    tagline: "Procesos en piloto automático",
-    description: "Conectamos las herramientas que ya usás: cobros automáticos con Mercado Pago o Stripe, recordatorios por WhatsApp a tus clientes y sincronización de datos sin tareas manuales.",
-    priceLabel: "Inversión",
+    title: "Software & Sistemas de Gestión",
+    tagline: "Optimización operativa",
+    description: "Digitalizá los procesos de tu empresa con paneles de administración privados, turneros online, control de stock, pedidos mayoristas o automatizaciones.",
+    priceLabel: "Solución a medida",
     price: "A presupuesto",
-    priceNote: "Cotización según integraciones requeridas",
+    priceNote: "Cotización según módulos e integraciones requeridas.",
     features: [
-      "Cobros digitales con confirmación instantánea",
-      "Avisos automáticos a clientes vía WhatsApp o email",
-      "Conexión con planillas y bases de datos",
-      "Ahorro de horas semanales de trabajo repetitivo"
+      "Paneles administrativos con usuarios y claves.",
+      "Bases de datos seguras y respaldadas en la nube.",
+      "Gestión de stock, clientes, presupuestos o turnos.",
+      "Automatización de cobros y avisos por WhatsApp.",
+      "Reportes y métricas de tu negocio en tiempo real."
     ],
+    cta: "Cotizar sistema a medida",
     popular: false
   }
 ];
@@ -51,12 +59,12 @@ const services = [
 <section id="servicios" class="py-24 bg-zinc-950/60 border-y border-zinc-900 relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-xs uppercase tracking-widest text-zinc-400 font-semibold">Nuestros Servicios</h2>
+      <h2 class="text-xs uppercase tracking-widest text-zinc-400 font-semibold">Nuestros Servicios y Planes</h2>
       <p class="mt-3 text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
         Soluciones informáticas adaptadas a tu negocio.
       </p>
       <p class="mt-4 text-base sm:text-lg text-zinc-400">
-        Desde una presencia web que convierta visitantes en clientes, hasta sistemas a medida que ordenen y automaticen tu empresa.
+        Comenzá hoy mismo con nuestro plan de suscripción mensual sin costo inicial de desarrollo, o solicitá una cotización a medida para proyectos específicos.
       </p>
     </div>
 
@@ -69,7 +77,7 @@ const services = [
         }`}>
           {service.popular && (
             <div class="absolute -top-3.5 left-8 px-3 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white text-black">
-              Más Solicitado
+              Más Elegido
             </div>
           )}
 
@@ -86,22 +94,22 @@ const services = [
 
             <!-- Bloque de Precio / Presupuesto -->
             <div class="p-4 rounded-xl bg-black/50 border border-zinc-800/80 mb-6">
-              <span class="text-[11px] uppercase tracking-wider font-semibold text-zinc-400 block">
+              <span class="text-[11px] uppercase tracking-wider font-semibold text-zinc-300 block">
                 {service.priceLabel}
               </span>
-              <div class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5 tracking-tight">
+              <div class="text-2xl sm:text-3xl font-extrabold text-white mt-1 tracking-tight">
                 {service.price}
               </div>
-              <span class="text-xs text-zinc-500 mt-1 block">
+              <span class="text-[11px] text-zinc-400 mt-2 block leading-relaxed">
                 {service.priceNote}
               </span>
             </div>
 
             <div class="border-t border-zinc-800/80 pt-6 mb-8">
               <span class="text-xs font-semibold uppercase tracking-wider text-zinc-300 block mb-4">
-                Qué resolvemos:
+                Qué incluye:
               </span>
-              <ul class="space-y-3">
+              <ul class="space-y-2.5">
                 {service.features.map((item) => (
                   <li class="flex items-start gap-3 text-sm text-zinc-300">
                     <svg class="w-4 h-4 text-white shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,13 +124,13 @@ const services = [
 
           <a
             href="#contacto"
-            class={`w-full py-3 rounded-xl text-sm font-semibold text-center transition-all ${
+            class={`w-full py-3.5 rounded-xl text-sm font-semibold text-center transition-all ${
               service.popular
                 ? 'bg-white hover:bg-zinc-200 text-black'
                 : 'bg-zinc-900 hover:bg-zinc-850 text-white border border-zinc-800 hover:border-zinc-700'
             }`}
           >
-            Consultar por este servicio
+            {service.cta}
           </a>
         </div>
       ))}
