@@ -1,0 +1,1985 @@
+---
+import '../../styles/global.css';
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
+const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
+---
+
+<!doctype html>
+<html lang="es-AR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>Panel de Control & CRM | Estudio Orion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 min-h-screen antialiased selection:bg-violet-600 selection:text-white">
+    <!-- Config inyectada desde Astro -->
+    <div
+      id="orion-admin-env"
+      data-url={supabaseUrl}
+      data-key={supabaseAnonKey}
+      data-admin-email={superAdminEmail}
+      class="hidden"
+    ></div>
+
+    <!-- Fondo sutil -->
+    <div class="fixed inset-0 bg-subtle-grid pointer-events-none opacity-40 z-0"></div>
+
+    <!-- ===================================================================== -->
+    <!-- PANTALLA 1: LOGIN                                                     -->
+    <!-- ===================================================================== -->
+    <main id="view-login" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <div class="w-full max-w-md">
+        <!-- Logo & Header -->
+        <div class="text-center mb-8">
+          <a href="/" class="inline-flex items-center gap-2.5 mb-3 group">
+            <div class="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400 font-extrabold text-lg">
+              O
+            </div>
+            <span class="font-bold text-xl tracking-tight text-white">Estudio Orion</span>
+          </a>
+          <h1 class="text-2xl font-extrabold text-white">Panel de Administración</h1>
+          <p class="text-sm text-zinc-400 mt-1">
+            Ingresá con tu cuenta para ver tus estadísticas, gestionar tu web o administrar clientes.
+          </p>
+        </div>
+
+        <!-- Card de Login -->
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/80 backdrop-blur-md p-6 sm:p-8 shadow-2xl">
+          <div id="login-error" class="hidden mb-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-xs text-red-300"></div>
+
+          <form id="form-login" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                Correo Electrónico
+              </label>
+              <input
+                id="login-email"
+                type="email"
+                required
+                placeholder="tu@correo.com"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                Contraseña
+              </label>
+              <input
+                id="login-password"
+                type="password"
+                required
+                placeholder="••••••••"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
+              />
+            </div>
+
+            <button
+              id="btn-login-submit"
+              type="submit"
+              class="w-full rounded-xl bg-violet-600 hover:bg-violet-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition cursor-pointer"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
+
+          <!-- Modo Demo Interactiva (Para probar antes de conectar Supabase) -->
+          <div class="mt-6 pt-6 border-t border-zinc-800/80">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-semibold text-zinc-400">Modo Prueba Rápida (Sin Base de Datos)</span>
+              <button
+                id="btn-open-conn-modal"
+                type="button"
+                class="text-[11px] font-semibold text-violet-400 hover:text-violet-300 underline cursor-pointer"
+              >
+                Configurar Supabase
+              </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button
+                id="btn-demo-superadmin"
+                type="button"
+                class="flex items-center justify-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 px-3 py-2.5 text-xs font-semibold text-violet-300 transition cursor-pointer"
+              >
+                👑 Ver Tu CRM (SuperAdmin)
+              </button>
+              <button
+                id="btn-demo-cliente"
+                type="button"
+                class="flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition cursor-pointer"
+              >
+                📊 Ver Vista Cliente
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-xs text-zinc-500 mt-6">
+          <a href="/" class="hover:text-zinc-300 transition">← Volver a orionestudio.com.ar</a>
+        </p>
+      </div>
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- BARRA SUPERIOR COMPARTIDA (LOGUEADO)                                  -->
+    <!-- ===================================================================== -->
+    <header id="admin-topbar" class="hidden sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <a href="/" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white font-extrabold text-sm">
+              O
+            </div>
+            <span class="font-bold text-base text-white hidden sm:inline">Orion Admin</span>
+          </a>
+          <span id="topbar-role-badge" class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-violet-500/15 text-violet-300 border border-violet-500/30">
+            SuperAdmin
+          </span>
+          <span id="topbar-demo-indicator" class="hidden rounded-full px-2.5 py-0.5 text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            Modo Prueba Local
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Botón para volver al CRM cuando SuperAdmin está espiando la vista de un cliente -->
+          <button
+            id="btn-back-to-crm"
+            type="button"
+            class="hidden rounded-xl border border-violet-500/40 bg-violet-500/15 hover:bg-violet-500/25 px-3.5 py-1.5 text-xs font-bold text-violet-200 transition cursor-pointer"
+          >
+            ← Volver a mi CRM
+          </button>
+          <span id="topbar-user-email" class="text-xs text-zinc-400 hidden md:inline"></span>
+          <button
+            id="btn-logout"
+            type="button"
+            class="rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 text-xs font-semibold text-zinc-300 transition cursor-pointer"
+          >
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- PANTALLA 2: VISTA SUPERADMIN (CRM + CONTROL DE PAGOS Y DEMOS)         -->
+    <!-- ===================================================================== -->
+    <section id="view-superadmin" class="hidden relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <!-- Encabezado y Acciones Principales -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white">CRM & Control de Licencias</h1>
+          <p class="text-sm text-zinc-400 mt-1">
+            Ninguna web se desactiva sola por fecha: vos decidís manualmente cuándo activar o suspender cada sitio.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button
+            id="btn-open-payment-modal"
+            type="button"
+            class="rounded-xl border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-4 py-2.5 text-xs sm:text-sm font-bold text-emerald-300 transition cursor-pointer"
+          >
+            💸 Registrar Pago
+          </button>
+          <button
+            id="btn-open-new-client"
+            type="button"
+            class="rounded-xl bg-violet-600 hover:bg-violet-500 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
+          >
+            + Nuevo Cliente / Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs Financieros y Comerciales -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Cobrado este mes</span>
+          <p id="crm-kpi-cobrado" class="text-2xl font-extrabold text-emerald-400 mt-1">$0</p>
+          <p id="crm-kpi-cobrado-sub" class="text-xs text-zinc-500 mt-1">Mensualidades + Pagos únicos</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Mensualidades Recurrentes</span>
+          <p id="crm-kpi-mrr" class="text-2xl font-extrabold text-white mt-1">$0 / mes</p>
+          <p id="crm-kpi-vencidos" class="text-xs text-amber-400 mt-1">0 pendientes de cobro</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Clientes Activos</span>
+          <p id="crm-kpi-activos" class="text-2xl font-extrabold text-white mt-1">0</p>
+          <p id="crm-kpi-activos-sub" class="text-xs text-zinc-500 mt-1">0 mensuales · 0 pago único</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Demos en Prospección</span>
+          <p id="crm-kpi-demos" class="text-2xl font-extrabold text-violet-400 mt-1">0</p>
+          <p id="crm-kpi-demos-visitas" class="text-xs text-zinc-400 mt-1">0 aperturas totales</p>
+        </div>
+      </div>
+
+      <!-- Pestañas SuperAdmin: Proyectos vs Historial de Caja -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-3">
+        <div class="flex items-center gap-2">
+          <button
+            data-crm-tab="negocios"
+            class="crm-tab-btn rounded-xl bg-violet-600 text-white px-4 py-2 text-xs font-bold transition cursor-pointer"
+          >
+            🌐 Clientes y Demos
+          </button>
+          <button
+            data-crm-tab="pagos"
+            class="crm-tab-btn rounded-xl bg-zinc-900 text-zinc-400 hover:text-white px-4 py-2 text-xs font-bold transition cursor-pointer"
+          >
+            💰 Historial de Pagos (<span id="crm-count-pagos">0</span>)
+          </button>
+        </div>
+
+        <!-- Filtros rápidos de clientes -->
+        <div id="crm-filters" class="flex flex-wrap items-center gap-1.5">
+          <button data-filter="todos" class="crm-filter-btn rounded-lg bg-zinc-800 text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            Todos
+          </button>
+          <button data-filter="demo" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            🚀 Demos
+          </button>
+          <button data-filter="mensual" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            🔄 Mensuales
+          </button>
+          <button data-filter="pago_unico" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            💎 Pago Único
+          </button>
+          <button data-filter="vencido" class="crm-filter-btn rounded-lg bg-zinc-900 text-amber-400 hover:text-amber-300 px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            ⚠️ Pago Pendiente
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLA 1: NEGOCIOS (CLIENTES Y DEMOS) -->
+      <div id="crm-panel-negocios" class="rounded-2xl border border-zinc-800/90 bg-zinc-900/60 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-900/90">
+                <th class="py-3.5 px-4">Negocio / ID</th>
+                <th class="py-3.5 px-4">Estado del Sitio (Manual)</th>
+                <th class="py-3.5 px-4">Plan y Cobranza</th>
+                <th class="py-3.5 px-4">Visitas Demo</th>
+                <th class="py-3.5 px-4 text-right">Acciones Rápidas</th>
+              </tr>
+            </thead>
+            <tbody id="crm-tbody-negocios" class="divide-y divide-zinc-800/60 text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TABLA 2: HISTORIAL DE PAGOS / CAJA -->
+      <div id="crm-panel-pagos" class="hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/60 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-900/90">
+                <th class="py-3.5 px-4">Fecha</th>
+                <th class="py-3.5 px-4">Cliente</th>
+                <th class="py-3.5 px-4">Concepto</th>
+                <th class="py-3.5 px-4">Método</th>
+                <th class="py-3.5 px-4">Monto</th>
+                <th class="py-3.5 px-4 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="crm-tbody-pagos" class="divide-y divide-zinc-800/60 text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PANTALLA 3: VISTA CLIENTE (ESTADÍSTICAS UTM + EDICIÓN DE SITIO)       -->
+    <!-- ===================================================================== -->
+    <section id="view-cliente" class="hidden relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <!-- Encabezado del Cliente -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-zinc-800/90 bg-zinc-900/75 p-6">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 id="client-header-name" class="text-2xl font-extrabold text-white">Mi Negocio</h1>
+            <span id="client-header-status" class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              Sitio Online
+            </span>
+          </div>
+          <p id="client-header-plan" class="text-xs text-zinc-400 mt-1">
+            Panel de estadísticas en tiempo real y configuración de contacto
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            data-client-tab="stats"
+            class="client-tab-btn rounded-xl bg-violet-600 text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+          >
+            📊 Estadísticas y Orígenes
+          </button>
+          <button
+            data-client-tab="config"
+            class="client-tab-btn rounded-xl bg-zinc-800 text-zinc-300 hover:text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+          >
+            ✏️ Editar Contacto y Redes
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-VISTA CLIENTE 1: ESTADÍSTICAS Y UTM -->
+      <div id="client-panel-stats" class="space-y-6">
+        <!-- Tarjetas de Métricas -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Visitas a tu Web</span>
+            <p id="client-kpi-visits" class="text-3xl font-extrabold text-white mt-2">0</p>
+            <p class="text-xs text-zinc-500 mt-1">Personas que abrieron tu página</p>
+          </div>
+          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300">Clics a tu WhatsApp</span>
+            <p id="client-kpi-wpp" class="text-3xl font-extrabold text-emerald-400 mt-2">0</p>
+            <p class="text-xs text-zinc-400 mt-1">Consultas directas generadas</p>
+          </div>
+          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
+            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Efectividad (Conversión)</span>
+            <p id="client-kpi-conv" class="text-3xl font-extrabold text-violet-400 mt-2">0%</p>
+            <p class="text-xs text-zinc-500 mt-1">De cada 100 visitas, cuántos te escriben</p>
+          </div>
+        </div>
+
+        <!-- Desglose por Red Social / Origen UTM + Últimos Clics -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- ¿De dónde vienen las visitas? -->
+          <div class="lg:col-span-7 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 flex flex-col justify-between">
+            <div>
+              <h2 class="text-base font-bold text-white">¿De dónde llegan tus visitantes?</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">
+                Detectado automáticamente según si entraron desde Instagram, Facebook, Google o link directo.
+              </p>
+              <div id="client-origins-bars" class="mt-6 space-y-4"></div>
+            </div>
+
+            <!-- Generador de Links con UTM para sus Redes -->
+            <div class="mt-8 pt-5 border-t border-zinc-800">
+              <p class="text-xs font-bold text-zinc-300 mb-1">
+                🔗 Links inteligentes para pegar en tus redes
+              </p>
+              <p class="text-[11px] text-zinc-400 mb-3">
+                Poné estos links en tu biografía de Instagram, Facebook o TikTok para medir exacto cuánta gente entra desde cada red:
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  data-copy-utm="instagram"
+                  type="button"
+                  class="utm-copy-btn rounded-xl border border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20 px-3 py-2 text-xs font-semibold text-pink-300 transition cursor-pointer"
+                >
+                  📸 Copiar Link para Bio de Instagram
+                </button>
+                <button
+                  data-copy-utm="facebook"
+                  type="button"
+                  class="utm-copy-btn rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-2 text-xs font-semibold text-blue-300 transition cursor-pointer"
+                >
+                  📘 Copiar Link para Facebook
+                </button>
+                <button
+                  data-copy-utm="tiktok"
+                  type="button"
+                  class="utm-copy-btn rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
+                >
+                  🎵 Copiar Link para TikTok
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actividad reciente -->
+          <div class="lg:col-span-5 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
+            <h2 class="text-base font-bold text-white">Últimas Consultas a WhatsApp</h2>
+            <p class="text-xs text-zinc-400 mt-0.5">
+              Registro de las últimas personas que tocaron contactar en tu web.
+            </p>
+            <div id="client-recent-events" class="mt-5 space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-VISTA CLIENTE 2: EDITAR CONTACTO, REDES Y BANNER -->
+      <div id="client-panel-config" class="hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 sm:p-8">
+        <div class="max-w-3xl">
+          <h2 class="text-lg font-bold text-white">Datos de Contacto, Redes y Aviso Superior</h2>
+          <p class="text-xs text-zinc-400 mt-1">
+            Cualquier cambio que guardes acá se actualiza al instante en tu página web sin necesidad de soporte técnico.
+          </p>
+
+          <form id="form-client-config" class="mt-6 space-y-6">
+            <!-- Barra Superior de Promoción / Aviso -->
+            <div class="rounded-xl border border-violet-500/30 bg-violet-500/5 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label for="cfg-banner-activo" class="text-sm font-bold text-white">
+                    Barra Superior de Anuncio / Promoción
+                  </label>
+                  <p class="text-xs text-zinc-400">
+                    Muestra un aviso destacado arriba de todo en tu web (ej: descuento semanal o horario por feriado).
+                  </p>
+                </div>
+                <input
+                  id="cfg-banner-activo"
+                  type="checkbox"
+                  class="h-5 w-5 rounded accent-violet-600 cursor-pointer"
+                />
+              </div>
+              <div>
+                <input
+                  id="cfg-banner-texto"
+                  type="text"
+                  placeholder="Ej: 🔥 15% OFF abonando en efectivo o transferencia esta semana"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <!-- WhatsApp y Mensaje Predeterminado -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Número de WhatsApp (Con código de país)
+                </label>
+                <input
+                  id="cfg-whatsapp"
+                  type="text"
+                  required
+                  placeholder="Ej: 5492215550199"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Email de Contacto Público
+                </label>
+                <input
+                  id="cfg-email"
+                  type="email"
+                  placeholder="contacto@tunegocio.com"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                Mensaje predeterminado cuando te escriben por WhatsApp
+              </label>
+              <input
+                id="cfg-mensaje-wpp"
+                type="text"
+                placeholder="Hola! Vi su página web y me gustaría hacer una consulta."
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+              />
+            </div>
+
+            <!-- Dirección y Horarios -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Dirección del Negocio / Consultorio
+                </label>
+                <input
+                  id="cfg-direccion"
+                  type="text"
+                  placeholder="Av. 7 N° 842, La Plata"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Horarios de Atención (1 por línea)
+                </label>
+                <textarea
+                  id="cfg-horarios"
+                  rows="2"
+                  placeholder="Lunes a Viernes: 09:00 a 18:00 hs"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Redes Sociales -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Link de Instagram
+                </label>
+                <input
+                  id="cfg-instagram"
+                  type="url"
+                  placeholder="https://instagram.com/tuusuario"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Link de Facebook
+                </label>
+                <input
+                  id="cfg-facebook"
+                  type="url"
+                  placeholder="https://facebook.com/tupagina"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Link de TikTok
+                </label>
+                <input
+                  id="cfg-tiktok"
+                  type="url"
+                  placeholder="https://tiktok.com/@tuusuario"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div class="pt-2 flex items-center gap-4">
+              <button
+                type="submit"
+                class="rounded-xl bg-violet-600 hover:bg-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
+              >
+                💾 Guardar Cambios en la Web
+              </button>
+              <span id="cfg-save-feedback" class="text-xs font-semibold text-emerald-400 hidden">
+                ✓ ¡Cambios guardados y publicados!
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: CREAR / EDITAR CLIENTE O DEMO                                -->
+    <!-- ===================================================================== -->
+    <div id="modal-client" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
+      <div class="w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-900 p-6 sm:p-7 shadow-2xl max-h-[92vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-5">
+          <h3 id="modal-client-title" class="text-lg font-extrabold text-white">Nuevo Cliente / Demo</h3>
+          <button id="btn-close-client-modal" type="button" class="text-zinc-400 hover:text-white text-xl cursor-pointer">×</button>
+        </div>
+
+        <form id="form-modal-client" class="space-y-4">
+          <input id="mc-is-edit" type="hidden" value="false" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                ID Único (Slug para .env) *
+              </label>
+              <input
+                id="mc-id"
+                type="text"
+                required
+                placeholder="ej: clinica-nova"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                Nombre del Negocio *
+              </label>
+              <input
+                id="mc-nombre"
+                type="text"
+                required
+                placeholder="Ej: Clínica Dental Nova"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                Estado del Sitio (Manual)
+              </label>
+              <select
+                id="mc-estado"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+              >
+                <option value="demo">🚀 Demo (Prospección)</option>
+                <option value="activo">🟢 Activo (Cliente Oficial)</option>
+                <option value="suspendido">🔴 Suspendido (Pausado Manual)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                Modalidad de Plan
+              </label>
+              <select
+                id="mc-modalidad"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
+              >
+                <option value="mensual">🔄 Suscripción Mensual</option>
+                <option value="pago_unico">💎 Pago Único (Web Vendida)</option>
+                <option value="personalizado">⚙️ Plan Personalizado / Bonificado</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Campos para Plan Mensual -->
+          <div id="mc-box-mensual" class="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl border border-zinc-800 bg-zinc-950/60 p-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-zinc-400 mb-1">Valor Mensual ($ ARS)</label>
+              <input
+                id="mc-precio-mensual"
+                type="number"
+                value="35000"
+                class="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-zinc-400 mb-1">Próximo Vencimiento</label>
+              <input
+                id="mc-vencimiento"
+                type="date"
+                class="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+          </div>
+
+          <!-- Campos para Pago Único -->
+          <div id="mc-box-unico" class="hidden grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl border border-zinc-800 bg-zinc-950/60 p-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-zinc-400 mb-1">Valor Total Pago Único ($)</label>
+              <input
+                id="mc-monto-unico"
+                type="number"
+                value="150000"
+                class="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-zinc-400 mb-1">Estado del Pago Único</label>
+              <select
+                id="mc-estado-unico"
+                class="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white"
+              >
+                <option value="pendiente">⏳ Pendiente</option>
+                <option value="sena_50">🌗 Seña 50% Cobrada</option>
+                <option value="pagado">✅ Pagado 100%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                WhatsApp del Negocio *
+              </label>
+              <input
+                id="mc-whatsapp"
+                type="text"
+                required
+                placeholder="5492215550199"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                URL de su Web (Opcional)
+              </label>
+              <input
+                id="mc-url"
+                type="url"
+                placeholder="https://clinicanova.com.ar"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                Email del Cliente (Para su Login)
+              </label>
+              <input
+                id="mc-email-cliente"
+                type="email"
+                placeholder="cliente@correo.com"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">
+                Contraseña del Cliente (Opcional)
+              </label>
+              <input
+                id="mc-password-cliente"
+                type="text"
+                placeholder="Ej: clinica2026 (crea su usuario)"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+            <label class="inline-flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
+              <input id="mc-acceso-panel" type="checkbox" checked class="rounded accent-violet-600" />
+              <span>Habilitar acceso al Panel de Cliente</span>
+            </label>
+            <label class="inline-flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
+              <input id="mc-barra-demo" type="checkbox" checked class="rounded accent-violet-600" />
+              <span>Mostrar barra inferior cuando está en Demo</span>
+            </label>
+          </div>
+
+          <div class="pt-4 flex items-center justify-end gap-3 border-t border-zinc-800">
+            <button
+              id="btn-cancel-client-modal"
+              type="button"
+              class="rounded-xl border border-zinc-700 px-4 py-2.5 text-xs font-semibold text-zinc-300 hover:bg-zinc-800 cursor-pointer"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="rounded-xl bg-violet-600 hover:bg-violet-500 px-5 py-2.5 text-xs font-bold text-white cursor-pointer"
+            >
+              Guardar Negocio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: REGISTRAR PAGO (MENSUALIDAD O PAGO ÚNICO)                    -->
+    <!-- ===================================================================== -->
+    <div id="modal-payment" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
+      <div class="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-extrabold text-white">💸 Registrar Cobro</h3>
+          <button id="btn-close-payment-modal" type="button" class="text-zinc-400 hover:text-white text-xl cursor-pointer">×</button>
+        </div>
+
+        <form id="form-modal-payment" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Cliente *</label>
+            <select
+              id="mp-negocio-id"
+              required
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+            ></select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Monto ($ ARS) *</label>
+              <input
+                id="mp-monto"
+                type="number"
+                required
+                value="35000"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Fecha *</label>
+              <input
+                id="mp-fecha"
+                type="date"
+                required
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Concepto</label>
+              <input
+                id="mp-concepto"
+                type="text"
+                required
+                value="Mensualidad"
+                placeholder="Mensualidad / Seña 50%"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Método</label>
+              <select
+                id="mp-metodo"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-white"
+              >
+                <option value="Transferencia">Transferencia</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="MercadoPago">MercadoPago</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="flex items-center gap-2 text-xs text-emerald-300 pt-1 cursor-pointer">
+            <input id="mp-avanzar-mes" type="checkbox" checked class="rounded accent-emerald-500" />
+            <span>Si es Plan Mensual, adelantar próximo vencimiento +1 mes automáticamente</span>
+          </label>
+
+          <div class="pt-3 flex justify-end gap-2.5 border-t border-zinc-800">
+            <button
+              id="btn-cancel-payment-modal"
+              type="button"
+              class="rounded-xl border border-zinc-700 px-4 py-2 text-xs font-semibold text-zinc-300 cursor-pointer"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="rounded-xl bg-emerald-600 hover:bg-emerald-500 px-5 py-2 text-xs font-bold text-white cursor-pointer"
+            >
+              Guardar Cobro
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 3: CONECTAR SUPABASE DESDE EL NAVEGADOR                         -->
+    <!-- ===================================================================== -->
+    <div id="modal-conn" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
+      <div class="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-extrabold text-white">⚡ Conexión con Supabase</h3>
+          <button id="btn-close-conn-modal" type="button" class="text-zinc-400 hover:text-white text-xl cursor-pointer">×</button>
+        </div>
+        <p class="text-xs text-zinc-400">
+          Podés definir estas variables en el archivo <code class="text-violet-300">.env</code> de tu proyecto o pegarlas acá para probar en vivo:
+        </p>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1">Project URL (PUBLIC_SUPABASE_URL)</label>
+            <input
+              id="conn-url"
+              type="url"
+              placeholder="https://xxxx.supabase.co"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2 text-xs text-white"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1">Anon Public Key (PUBLIC_SUPABASE_ANON_KEY)</label>
+            <input
+              id="conn-key"
+              type="text"
+              placeholder="eyJhbGciOiJIUzI1NiIsInR5..."
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2 text-xs text-white"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1">Tu Email SuperAdmin</label>
+            <input
+              id="conn-email"
+              type="email"
+              placeholder="tu-email@gmail.com"
+              class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2 text-xs text-white"
+            />
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button
+            id="btn-save-conn"
+            type="button"
+            class="rounded-xl bg-violet-600 hover:bg-violet-500 px-4 py-2 text-xs font-bold text-white cursor-pointer"
+          >
+            Guardar Conexión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast de notificación rápida -->
+    <div
+      id="admin-toast"
+      class="hidden fixed bottom-5 right-5 z-50 rounded-xl border border-violet-500/40 bg-zinc-900/95 px-4 py-3 text-xs font-semibold text-white shadow-2xl"
+    ></div>
+
+    <!-- ===================================================================== -->
+    <!-- LÓGICA DEL PANEL (SUPABASE REST + MODO PRUEBA INTERACTIVO)            -->
+    <!-- ===================================================================== -->
+    <script>
+      const envEl = document.getElementById('orion-admin-env');
+      function cleanSupabaseUrl(raw: string): string {
+        return raw.trim().replace(/\/rest\/v1\/?$/i, '').replace(/\/+$/, '');
+      }
+      let SUPABASE_URL = cleanSupabaseUrl(
+        envEl?.dataset.url || localStorage.getItem('orion_sb_url') || ''
+      );
+      let SUPABASE_KEY =
+        envEl?.dataset.key?.trim() || localStorage.getItem('orion_sb_key') || '';
+      let SUPERADMIN_EMAIL =
+        (envEl?.dataset.adminEmail?.trim() || localStorage.getItem('orion_sb_admin') || '').toLowerCase();
+
+      // Estado en memoria
+      let isMockMode = false;
+      let accessToken = sessionStorage.getItem('orion_access_token') || '';
+      let currentUserEmail = sessionStorage.getItem('orion_user_email') || '';
+      let currentUserId = sessionStorage.getItem('orion_user_id') || '';
+      let isSuperAdmin = false;
+      let currentFilter = 'todos';
+      let selectedClientNegocio: Record<string, any> | null = null;
+
+      // Datos cargados
+      let negociosList: Record<string, any>[] = [];
+      let pagosList: Record<string, any>[] = [];
+      let eventosList: Record<string, any>[] = [];
+
+      // Datos de ejemplo para el Modo Prueba Local
+      const MOCK_NEGOCIOS: Record<string, any>[] = [
+        {
+          id: 'clinica-nova',
+          nombre: 'Clínica Dental Nova',
+          rubro: 'Odontología',
+          url_sitio: 'https://clinicanova.com.ar',
+          email_cliente: 'turnos@clinicanova.com.ar',
+          acceso_panel: true,
+          estado: 'activo',
+          mostrar_barra_demo: false,
+          modalidad_cobro: 'mensual',
+          precio_mensual: 35000,
+          monto_unico: 0,
+          estado_pago_unico: 'pendiente',
+          proximo_vencimiento_pago: new Date(Date.now() + 8 * 86400000).toISOString().slice(0, 10),
+          visitas_demo: 6,
+          ultima_visita_demo: new Date(Date.now() - 2 * 86400000).toISOString(),
+          whatsapp: '5492215550199',
+          mensaje_wpp_default: 'Hola! Vi su página web y me gustaría solicitar un turno.',
+          email_contacto: 'turnos@clinicanova.com.ar',
+          direccion: 'Av. 7 N° 842, Piso 4, La Plata',
+          horarios: 'Lunes a Viernes: 09:00 a 20:00 hs\nSábados: 09:00 a 13:30 hs',
+          instagram_url: 'https://instagram.com/clinicanova',
+          facebook_url: '',
+          tiktok_url: '',
+          banner_activo: true,
+          banner_texto: '✨ Evaluaciones de Diseño de Sonrisa 3D bonificadas esta semana',
+        },
+        {
+          id: 'constructora-selsi',
+          nombre: 'Constructora Selsi',
+          rubro: 'Construcción',
+          url_sitio: 'https://constructoraselsi.com.ar',
+          email_cliente: 'info@selsi.com.ar',
+          acceso_panel: true,
+          estado: 'activo',
+          mostrar_barra_demo: false,
+          modalidad_cobro: 'pago_unico',
+          precio_mensual: 0,
+          monto_unico: 180000,
+          estado_pago_unico: 'pagado',
+          proximo_vencimiento_pago: null,
+          visitas_demo: 4,
+          ultima_visita_demo: null,
+          whatsapp: '5492214440988',
+          mensaje_wpp_default: 'Hola! Quiero pedir presupuesto para una obra.',
+          email_contacto: 'info@selsi.com.ar',
+          direccion: 'Calle 12 N° 1120, La Plata',
+          horarios: 'Lunes a Viernes: 08:30 a 17:30 hs',
+          instagram_url: 'https://instagram.com/constructoraselsi',
+          facebook_url: '',
+          tiktok_url: '',
+          banner_activo: false,
+          banner_texto: '',
+        },
+        {
+          id: 'estetica-lumina',
+          nombre: 'Centro Estética Lúmina',
+          rubro: 'Estética',
+          url_sitio: 'https://demo-lumina.pages.dev',
+          email_cliente: '',
+          acceso_panel: true,
+          estado: 'demo',
+          mostrar_barra_demo: true,
+          modalidad_cobro: 'mensual',
+          precio_mensual: 35000,
+          monto_unico: 0,
+          estado_pago_unico: 'pendiente',
+          proximo_vencimiento_pago: null,
+          visitas_demo: 5,
+          ultima_visita_demo: new Date(Date.now() - 1800000).toISOString(),
+          whatsapp: '5492216001122',
+          mensaje_wpp_default: 'Hola! Quiero consultar por un tratamiento facial.',
+          email_contacto: '',
+          direccion: 'Calle 47 N° 630, La Plata',
+          horarios: 'Martes a Sábados: 10:00 a 19:00 hs',
+          instagram_url: 'https://instagram.com/esteticalumina',
+          facebook_url: '',
+          tiktok_url: '',
+          banner_activo: true,
+          banner_texto: '🔥 20% OFF en Depilación Definitiva abonando en efectivo',
+        },
+        {
+          id: 'ferreteria-sur',
+          nombre: 'Ferretería Industrial Sur',
+          rubro: 'Comercio',
+          url_sitio: 'https://ferreteriasur.com.ar',
+          email_cliente: 'ventas@ferreteriasur.com.ar',
+          acceso_panel: true,
+          estado: 'activo',
+          mostrar_barra_demo: false,
+          modalidad_cobro: 'mensual',
+          precio_mensual: 35000,
+          monto_unico: 0,
+          estado_pago_unico: 'pendiente',
+          proximo_vencimiento_pago: new Date(Date.now() - 3 * 86400000).toISOString().slice(0, 10),
+          visitas_demo: 2,
+          ultima_visita_demo: null,
+          whatsapp: '5492215009911',
+          mensaje_wpp_default: 'Hola! Quería cotizar herramientas.',
+          email_contacto: 'ventas@ferreteriasur.com.ar',
+          direccion: 'Av. 44 N° 2150, La Plata',
+          horarios: 'Lunes a Sábados: 08:00 a 18:00 hs',
+          instagram_url: '',
+          facebook_url: '',
+          tiktok_url: '',
+          banner_activo: false,
+          banner_texto: '',
+        },
+      ];
+
+      const MOCK_PAGOS: Record<string, any>[] = [
+        {
+          id: 'p1',
+          negocio_id: 'clinica-nova',
+          monto: 35000,
+          concepto: 'Mensualidad Mes Actual',
+          metodo: 'Transferencia',
+          fecha_pago: new Date().toISOString().slice(0, 10),
+        },
+        {
+          id: 'p2',
+          negocio_id: 'constructora-selsi',
+          monto: 180000,
+          concepto: 'Pago Único Web Completa',
+          metodo: 'Transferencia',
+          fecha_pago: new Date().toISOString().slice(0, 10),
+        },
+      ];
+
+      const MOCK_EVENTOS: Record<string, any>[] = [
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 600000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Agendar Diagnóstico por WhatsApp', created_at: new Date(Date.now() - 540000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 3600000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: new Date(Date.now() - 7200000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'formulario_whatsapp', origen: 'Google', detalle: 'Formulario: Implantes de Carga Inmediata', created_at: new Date(Date.now() - 7000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Facebook', detalle: '/', created_at: new Date(Date.now() - 14400000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Facebook', detalle: 'Solicitar Pack Sonrisa', created_at: new Date(Date.now() - 14000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: new Date(Date.now() - 28000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 50000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Chatear directo por WhatsApp', created_at: new Date(Date.now() - 49000000).toISOString() },
+      ];
+
+      function showToast(msg: string) {
+        const toast = document.getElementById('admin-toast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3200);
+      }
+
+      function formatARS(amount: number): string {
+        return '$' + Number(amount || 0).toLocaleString('es-AR');
+      }
+
+      function sbHeaders() {
+        return {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken || SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=representation',
+        };
+      }
+
+      // =======================================================================
+      // RENDERIZADO SUPERADMIN (CRM)
+      // =======================================================================
+      function renderSuperAdmin() {
+        const currentMonthPrefix = new Date().toISOString().slice(0, 7); // YYYY-MM
+        const cobradoMes = pagosList
+          .filter((p) => String(p.fecha_pago || '').startsWith(currentMonthPrefix))
+          .reduce((acc, p) => acc + Number(p.monto || 0), 0);
+
+        const activos = negociosList.filter((n) => n.estado === 'activo');
+        const activosMensuales = activos.filter((n) => n.modalidad_cobro === 'mensual');
+        const activosPagoUnico = activos.filter((n) => n.modalidad_cobro === 'pago_unico');
+        const mrr = activosMensuales.reduce((acc, n) => acc + Number(n.precio_mensual || 0), 0);
+
+        const hoyStr = new Date().toISOString().slice(0, 10);
+        const vencidosCount = negociosList.filter(
+          (n) =>
+            n.estado === 'activo' &&
+            n.modalidad_cobro === 'mensual' &&
+            n.proximo_vencimiento_pago &&
+            n.proximo_vencimiento_pago < hoyStr
+        ).length;
+
+        const demos = negociosList.filter((n) => n.estado === 'demo');
+        const demosVisitas = demos.reduce((acc, n) => acc + Number(n.visitas_demo || 0), 0);
+
+        (document.getElementById('crm-kpi-cobrado') as HTMLElement).textContent = formatARS(cobradoMes);
+        (document.getElementById('crm-kpi-mrr') as HTMLElement).textContent = `${formatARS(mrr)} / mes`;
+        (document.getElementById('crm-kpi-vencidos') as HTMLElement).textContent =
+          vencidosCount > 0
+            ? `⚠️ ${vencidosCount} con fecha de pago vencida (siguen online)`
+            : '✓ Todos los clientes mensuales al día';
+        (document.getElementById('crm-kpi-activos') as HTMLElement).textContent = String(activos.length);
+        (document.getElementById('crm-kpi-activos-sub') as HTMLElement).textContent = `${activosMensuales.length} mensuales · ${activosPagoUnico.length} pago único`;
+        (document.getElementById('crm-kpi-demos') as HTMLElement).textContent = String(demos.length);
+        (document.getElementById('crm-kpi-demos-visitas') as HTMLElement).textContent = `${demosVisitas} aperturas de prospectos`;
+        (document.getElementById('crm-count-pagos') as HTMLElement).textContent = String(pagosList.length);
+
+        renderNegociosTable();
+        renderPagosTable();
+      }
+
+      function renderNegociosTable() {
+        const tbody = document.getElementById('crm-tbody-negocios');
+        if (!tbody) return;
+        const hoyStr = new Date().toISOString().slice(0, 10);
+
+        const filtered = negociosList.filter((n) => {
+          if (currentFilter === 'demo') return n.estado === 'demo';
+          if (currentFilter === 'mensual') return n.modalidad_cobro === 'mensual';
+          if (currentFilter === 'pago_unico') return n.modalidad_cobro === 'pago_unico';
+          if (currentFilter === 'vencido') {
+            return (
+              n.modalidad_cobro === 'mensual' &&
+              n.proximo_vencimiento_pago &&
+              n.proximo_vencimiento_pago < hoyStr
+            );
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-zinc-500">No hay negocios en este filtro.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filtered
+          .map((n) => {
+            // Badge de estado manual
+            let estadoBadge = '';
+            if (n.estado === 'activo') {
+              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 text-xs font-bold text-emerald-300">🟢 Activo</span>`;
+            } else if (n.estado === 'demo') {
+              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-violet-500/15 border border-violet-500/30 px-2.5 py-1 text-xs font-bold text-violet-300">🚀 En Demo</span>`;
+            } else {
+              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-red-500/15 border border-red-500/30 px-2.5 py-1 text-xs font-bold text-red-300">🔴 Suspendido</span>`;
+            }
+
+            // Info de Plan y Cobranza
+            let planHtml = '';
+            if (n.modalidad_cobro === 'mensual') {
+              const venc = n.proximo_vencimiento_pago || '';
+              const isVencido = venc && venc < hoyStr;
+              planHtml = `
+                <div class="font-semibold text-white">🔄 Mensual · ${formatARS(n.precio_mensual || 35000)}</div>
+                <div class="text-xs ${isVencido ? 'text-amber-400 font-bold' : 'text-zinc-400'}">
+                  ${
+                    venc
+                      ? isVencido
+                        ? `⚠️ Venció el ${venc} (Sigue online)`
+                        : `Próximo cobro: ${venc}`
+                      : 'Sin fecha asignada'
+                  }
+                </div>
+              `;
+            } else if (n.modalidad_cobro === 'pago_unico') {
+              const labels: Record<string, string> = {
+                pendiente: '⏳ Pendiente de cobro',
+                sena_50: '🌗 Seña 50% cobrada',
+                pagado: '✅ Pagado 100%',
+              };
+              planHtml = `
+                <div class="font-semibold text-sky-300">💎 Pago Único · ${formatARS(n.monto_unico || 0)}</div>
+                <div class="text-xs text-zinc-400">${labels[n.estado_pago_unico] || 'Pago único'}</div>
+              `;
+            } else {
+              planHtml = `
+                <div class="font-semibold text-zinc-300">⚙️ Personalizado</div>
+                <div class="text-xs text-zinc-500">Acuerdo a medida</div>
+              `;
+            }
+
+            // Botón manual de Activar / Suspender
+            const toggleSuspendBtn =
+              n.estado === 'suspendido'
+                ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Reactivar Web</button>`
+                : `<button data-action="set-estado" data-id="${n.id}" data-estado="suspendido" class="rounded-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2.5 py-1 text-xs font-semibold text-red-300 cursor-pointer" title="Pausar sitio manualmente">Suspender</button>`;
+
+            const activateFromDemoBtn =
+              n.estado === 'demo'
+                ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Pasar a Activo</button>`
+                : '';
+
+            const ultimaDemo = n.ultima_visita_demo
+              ? new Date(n.ultima_visita_demo).toLocaleString('es-AR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              : 'Sin abrir aún';
+
+            return `
+              <tr class="hover:bg-zinc-900/90 transition">
+                <td class="py-4 px-4">
+                  <div class="font-bold text-white">${n.nombre}</div>
+                  <div class="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
+                    <code class="text-violet-300">${n.id}</code>
+                    ${
+                      n.url_sitio
+                        ? `<a href="${n.url_sitio}" target="_blank" rel="noopener" class="underline hover:text-white">Abrir web ↗</a>`
+                        : ''
+                    }
+                  </div>
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex flex-wrap items-center gap-2">
+                    ${estadoBadge}
+                    ${activateFromDemoBtn}
+                    ${toggleSuspendBtn}
+                  </div>
+                </td>
+                <td class="py-4 px-4">${planHtml}</td>
+                <td class="py-4 px-4">
+                  <div class="font-bold text-white">${n.visitas_demo || 0} aperturas</div>
+                  <div class="text-xs text-zinc-500">${ultimaDemo}</div>
+                </td>
+                <td class="py-4 px-4 text-right">
+                  <div class="inline-flex flex-wrap items-center justify-end gap-1.5">
+                    <button data-action="quick-pay" data-id="${n.id}" class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1.5 text-xs font-semibold text-emerald-300 cursor-pointer" title="Registrar pago de este cliente">
+                      💸 Cobrar
+                    </button>
+                    <button data-action="view-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Ver panel y estadísticas del cliente">
+                      📊 Panel
+                    </button>
+                    <button data-action="edit-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Editar plan y datos">
+                      ✏️ Editar
+                    </button>
+                    <button data-action="copy-env" data-id="${n.id}" class="rounded-lg border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 px-2.5 py-1.5 text-xs font-semibold text-violet-300 cursor-pointer" title="Copiar variables .env para su Astro">
+                      📋 .env
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          })
+          .join('');
+      }
+
+      function renderPagosTable() {
+        const tbody = document.getElementById('crm-tbody-pagos');
+        if (!tbody) return;
+        if (pagosList.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-zinc-500">Todavía no registraste pagos.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = pagosList
+          .map((p) => {
+            const neg = negociosList.find((n) => n.id === p.negocio_id);
+            return `
+              <tr class="hover:bg-zinc-900/90 transition">
+                <td class="py-3.5 px-4 text-xs text-zinc-300">${p.fecha_pago || ''}</td>
+                <td class="py-3.5 px-4 font-semibold text-white">${neg ? neg.nombre : p.negocio_id}</td>
+                <td class="py-3.5 px-4 text-zinc-300">${p.concepto || 'Mensualidad'}</td>
+                <td class="py-3.5 px-4 text-xs text-zinc-400">${p.metodo || 'Transferencia'}</td>
+                <td class="py-3.5 px-4 font-bold text-emerald-400">${formatARS(p.monto)}</td>
+                <td class="py-3.5 px-4 text-right">
+                  <button data-action="delete-pago" data-id="${p.id}" class="text-xs text-red-400 hover:text-red-300 cursor-pointer">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            `;
+          })
+          .join('');
+      }
+
+      // =======================================================================
+      // RENDERIZADO VISTA CLIENTE (ESTADÍSTICAS UTM + CONFIG)
+      // =======================================================================
+      async function openClientView(negocio: Record<string, any>) {
+        selectedClientNegocio = negocio;
+        document.getElementById('view-login')?.classList.add('hidden');
+        document.getElementById('view-superadmin')?.classList.add('hidden');
+        document.getElementById('admin-topbar')?.classList.remove('hidden');
+        document.getElementById('view-cliente')?.classList.remove('hidden');
+
+        const backBtn = document.getElementById('btn-back-to-crm');
+        if (backBtn) {
+          backBtn.classList.toggle('hidden', !isSuperAdmin);
+        }
+
+        (document.getElementById('client-header-name') as HTMLElement).textContent = negocio.nombre;
+
+        // Cargar eventos de este negocio
+        let evs = eventosList.filter((e) => e.negocio_id === negocio.id);
+        if (!isMockMode && SUPABASE_URL && SUPABASE_KEY) {
+          try {
+            const res = await fetch(
+              `${SUPABASE_URL}/rest/v1/eventos_conversion?negocio_id=eq.${encodeURIComponent(negocio.id)}&order=created_at.desc&limit=500`,
+              { headers: sbHeaders() }
+            );
+            if (res.ok) {
+              evs = await res.json();
+            }
+          } catch {
+            // fallback
+          }
+        }
+
+        const vistas = evs.filter((e) => e.tipo === 'vista_pagina');
+        const clicsWpp = evs.filter((e) => e.tipo === 'click_whatsapp' || e.tipo === 'formulario_whatsapp');
+        const totalVistas = Math.max(vistas.length, clicsWpp.length);
+        const convRate = totalVistas > 0 ? Math.round((clicsWpp.length / totalVistas) * 100) : 0;
+
+        (document.getElementById('client-kpi-visits') as HTMLElement).textContent = String(totalVistas);
+        (document.getElementById('client-kpi-wpp') as HTMLElement).textContent = String(clicsWpp.length);
+        (document.getElementById('client-kpi-conv') as HTMLElement).textContent = `${convRate}%`;
+
+        // Agrupar orígenes (Instagram, Google, Facebook, TikTok, Directo)
+        const origenesMap: Record<string, { vistas: number; clics: number }> = {
+          Instagram: { vistas: 0, clics: 0 },
+          Google: { vistas: 0, clics: 0 },
+          Facebook: { vistas: 0, clics: 0 },
+          Directo: { vistas: 0, clics: 0 },
+        };
+
+        evs.forEach((ev) => {
+          const org = ev.origen || 'Directo';
+          if (!origenesMap[org]) origenesMap[org] = { vistas: 0, clics: 0 };
+          if (ev.tipo === 'vista_pagina') {
+            origenesMap[org].vistas += 1;
+          } else {
+            origenesMap[org].clics += 1;
+          }
+        });
+
+        const barsContainer = document.getElementById('client-origins-bars');
+        if (barsContainer) {
+          const entries = Object.entries(origenesMap).sort((a, b) => b[1].vistas + b[1].clics - (a[1].vistas + a[1].clics));
+          barsContainer.innerHTML = entries
+            .map(([origen, counts]) => {
+              const pct = totalVistas > 0 ? Math.min(100, Math.round((Math.max(counts.vistas, counts.clics) / totalVistas) * 100)) : 0;
+              return `
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1">
+                    <span class="font-bold text-white">${origen}</span>
+                    <span class="text-zinc-400">${Math.max(counts.vistas, counts.clics)} visitas · <strong class="text-emerald-400">${counts.clics} clics a WhatsApp</strong> (${pct}%)</span>
+                  </div>
+                  <div class="w-full h-2.5 rounded-full bg-zinc-800 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-emerald-400" style="width: ${Math.max(pct, 4)}%"></div>
+                  </div>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        // Lista de últimos clics a WhatsApp
+        const recentEl = document.getElementById('client-recent-events');
+        if (recentEl) {
+          if (clicsWpp.length === 0) {
+            recentEl.innerHTML = `<p class="text-xs text-zinc-500 py-4">Aún no hay clics registrados.</p>`;
+          } else {
+            recentEl.innerHTML = clicsWpp
+              .slice(0, 12)
+              .map((ev) => {
+                const fecha = ev.created_at
+                  ? new Date(ev.created_at).toLocaleString('es-AR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })
+                  : '';
+                return `
+                  <div class="rounded-xl border border-zinc-800/80 bg-zinc-950/60 p-3 flex items-start justify-between gap-3">
+                    <div>
+                      <span class="inline-block rounded-md bg-emerald-500/15 text-emerald-300 px-2 py-0.5 text-[11px] font-bold">
+                        Desde ${ev.origen || 'Directo'}
+                      </span>
+                      <p class="text-xs text-zinc-200 font-medium mt-1">${ev.detalle || 'Clic en botón de WhatsApp'}</p>
+                    </div>
+                    <span class="text-[11px] text-zinc-500 shrink-0">${fecha}</span>
+                  </div>
+                `;
+              })
+              .join('');
+          }
+        }
+
+        // Rellenar formulario de configuración del cliente
+        (document.getElementById('cfg-banner-activo') as HTMLInputElement).checked = Boolean(negocio.banner_activo);
+        (document.getElementById('cfg-banner-texto') as HTMLInputElement).value = negocio.banner_texto || '';
+        (document.getElementById('cfg-whatsapp') as HTMLInputElement).value = negocio.whatsapp || '';
+        (document.getElementById('cfg-email') as HTMLInputElement).value = negocio.email_contacto || '';
+        (document.getElementById('cfg-mensaje-wpp') as HTMLInputElement).value = negocio.mensaje_wpp_default || '';
+        (document.getElementById('cfg-direccion') as HTMLInputElement).value = negocio.direccion || '';
+        (document.getElementById('cfg-horarios') as HTMLTextAreaElement).value = negocio.horarios || '';
+        (document.getElementById('cfg-instagram') as HTMLInputElement).value = negocio.instagram_url || '';
+        (document.getElementById('cfg-facebook') as HTMLInputElement).value = negocio.facebook_url || '';
+        (document.getElementById('cfg-tiktok') as HTMLInputElement).value = negocio.tiktok_url || '';
+      }
+
+      // =======================================================================
+      // CARGA DE DATOS DESDE SUPABASE O MODO PRUEBA
+      // =======================================================================
+      async function cargarDatos() {
+        if (isMockMode) {
+          negociosList = [...MOCK_NEGOCIOS];
+          pagosList = [...MOCK_PAGOS];
+          eventosList = [...MOCK_EVENTOS];
+          renderSuperAdmin();
+          return;
+        }
+
+        if (!SUPABASE_URL || !SUPABASE_KEY) return;
+
+        try {
+          if (isSuperAdmin) {
+            const [negRes, pagRes] = await Promise.all([
+              fetch(`${SUPABASE_URL}/rest/v1/negocios?select=*&order=created_at.desc`, { headers: sbHeaders() }),
+              fetch(`${SUPABASE_URL}/rest/v1/pagos?select=*&order=fecha_pago.desc`, { headers: sbHeaders() }),
+            ]);
+            negociosList = negRes.ok ? await negRes.json() : [];
+            pagosList = pagRes.ok ? await pagRes.json() : [];
+            renderSuperAdmin();
+          } else {
+            // Buscar el negocio asociado al usuario logueado
+            const negRes = await fetch(
+              `${SUPABASE_URL}/rest/v1/negocios?or=(user_id.eq.${currentUserId},email_cliente.eq.${encodeURIComponent(currentUserEmail)})&select=*`,
+              { headers: sbHeaders() }
+            );
+            const rows = negRes.ok ? await negRes.json() : [];
+            if (rows.length > 0) {
+              openClientView(rows[0]);
+            } else {
+              showToast('No se encontró un negocio asociado a este correo.');
+            }
+          }
+        } catch {
+          showToast('Error al conectar con Supabase.');
+        }
+      }
+
+      function entrarComoSuperAdmin(mock = false) {
+        isMockMode = mock;
+        isSuperAdmin = true;
+        document.getElementById('view-login')?.classList.add('hidden');
+        document.getElementById('view-cliente')?.classList.add('hidden');
+        document.getElementById('admin-topbar')?.classList.remove('hidden');
+        document.getElementById('view-superadmin')?.classList.remove('hidden');
+        (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '👑 SuperAdmin CRM';
+        document.getElementById('topbar-demo-indicator')?.classList.toggle('hidden', !mock);
+        (document.getElementById('topbar-user-email') as HTMLElement).textContent =
+          currentUserEmail || 'admin@orionestudio.com.ar';
+        cargarDatos();
+      }
+
+      function entrarComoClienteDemo() {
+        isMockMode = true;
+        isSuperAdmin = false;
+        negociosList = [...MOCK_NEGOCIOS];
+        eventosList = [...MOCK_EVENTOS];
+        (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '📊 Panel Cliente';
+        document.getElementById('topbar-demo-indicator')?.classList.remove('hidden');
+        openClientView(negociosList[0]);
+      }
+
+      // =======================================================================
+      // EVENTOS DE INTERFAZ
+      // =======================================================================
+      // Botones Modo Prueba
+      document.getElementById('btn-demo-superadmin')?.addEventListener('click', () => entrarComoSuperAdmin(true));
+      document.getElementById('btn-demo-cliente')?.addEventListener('click', () => entrarComoClienteDemo());
+
+      // Volver al CRM desde Vista Cliente
+      document.getElementById('btn-back-to-crm')?.addEventListener('click', () => {
+        document.getElementById('view-cliente')?.classList.add('hidden');
+        document.getElementById('view-superadmin')?.classList.remove('hidden');
+        renderSuperAdmin();
+      });
+
+      // Logout
+      document.getElementById('btn-logout')?.addEventListener('click', () => {
+        sessionStorage.removeItem('orion_access_token');
+        sessionStorage.removeItem('orion_user_email');
+        sessionStorage.removeItem('orion_user_id');
+        accessToken = '';
+        document.getElementById('admin-topbar')?.classList.add('hidden');
+        document.getElementById('view-superadmin')?.classList.add('hidden');
+        document.getElementById('view-cliente')?.classList.add('hidden');
+        document.getElementById('view-login')?.classList.remove('hidden');
+      });
+
+      // Login real con Supabase Auth
+      document.getElementById('form-login')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errEl = document.getElementById('login-error') as HTMLElement;
+        errEl.classList.add('hidden');
+
+        const email = (document.getElementById('login-email') as HTMLInputElement).value.trim().toLowerCase();
+        const password = (document.getElementById('login-password') as HTMLInputElement).value;
+
+        if (!SUPABASE_URL || !SUPABASE_KEY) {
+          errEl.textContent =
+            'Todavía no configuraste las credenciales de Supabase. Podés tocar "Configurar Supabase" abajo o usar los botones de Modo Prueba Rápida.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+
+        try {
+          const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            errEl.textContent = data.error_description || data.msg || 'Correo o contraseña incorrectos.';
+            errEl.classList.remove('hidden');
+            return;
+          }
+
+          accessToken = data.access_token;
+          currentUserEmail = (data.user?.email || email).toLowerCase();
+          currentUserId = data.user?.id || '';
+          sessionStorage.setItem('orion_access_token', accessToken);
+          sessionStorage.setItem('orion_user_email', currentUserEmail);
+          sessionStorage.setItem('orion_user_id', currentUserId);
+
+          if (!SUPERADMIN_EMAIL || currentUserEmail === SUPERADMIN_EMAIL) {
+            entrarComoSuperAdmin(false);
+          } else {
+            isMockMode = false;
+            isSuperAdmin = false;
+            (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '📊 Panel Cliente';
+            cargarDatos();
+          }
+        } catch {
+          errEl.textContent = 'No se pudo conectar con el servidor de Supabase.';
+          errEl.classList.remove('hidden');
+        }
+      });
+
+      // Tabs SuperAdmin (Negocios vs Pagos)
+      document.querySelectorAll<HTMLButtonElement>('.crm-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.crmTab;
+          document.querySelectorAll('.crm-tab-btn').forEach((b) => {
+            b.classList.remove('bg-violet-600', 'text-white');
+            b.classList.add('bg-zinc-900', 'text-zinc-400');
+          });
+          btn.classList.add('bg-violet-600', 'text-white');
+          btn.classList.remove('bg-zinc-900', 'text-zinc-400');
+
+          document.getElementById('crm-panel-negocios')?.classList.toggle('hidden', tab !== 'negocios');
+          document.getElementById('crm-filters')?.classList.toggle('hidden', tab !== 'negocios');
+          document.getElementById('crm-panel-pagos')?.classList.toggle('hidden', tab !== 'pagos');
+        });
+      });
+
+      // Filtros de la tabla de negocios
+      document.querySelectorAll<HTMLButtonElement>('.crm-filter-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          currentFilter = btn.dataset.filter || 'todos';
+          document.querySelectorAll('.crm-filter-btn').forEach((b) => {
+            b.classList.remove('bg-zinc-800', 'text-white');
+            b.classList.add('bg-zinc-900');
+          });
+          btn.classList.add('bg-zinc-800', 'text-white');
+          renderNegociosTable();
+        });
+      });
+
+      // Acciones en la tabla de Negocios
+      document.getElementById('crm-tbody-negocios')?.addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest('button[data-action]') as HTMLButtonElement | null;
+        if (!btn) return;
+        const action = btn.dataset.action;
+        const id = btn.dataset.id || '';
+        const negocio = negociosList.find((n) => n.id === id);
+        if (!negocio) return;
+
+        if (action === 'set-estado') {
+          const nuevoEstado = btn.dataset.estado || 'activo';
+          negocio.estado = nuevoEstado;
+          if (!isMockMode && SUPABASE_URL) {
+            await fetch(`${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(id)}`, {
+              method: 'PATCH',
+              headers: sbHeaders(),
+              body: JSON.stringify({ estado: nuevoEstado }),
+            });
+          }
+          renderSuperAdmin();
+          showToast(`Estado de ${negocio.nombre} cambiado manualmente a: ${nuevoEstado.toUpperCase()}`);
+        } else if (action === 'view-client') {
+          openClientView(negocio);
+        } else if (action === 'edit-client') {
+          abrirModalCliente(negocio);
+        } else if (action === 'quick-pay') {
+          abrirModalPago(negocio.id);
+        } else if (action === 'copy-env') {
+          const envText = `PUBLIC_SUPABASE_URL="${SUPABASE_URL || 'https://tu-proyecto.supabase.co'}"\nPUBLIC_SUPABASE_ANON_KEY="${SUPABASE_KEY || 'tu-anon-key'}"\nPUBLIC_NEGOCIO_ID="${negocio.id}"`;
+          navigator.clipboard.writeText(envText);
+          showToast(`Variables .env de "${negocio.id}" copiadas al portapapeles`);
+        }
+      });
+
+      // Eliminar pago
+      document.getElementById('crm-tbody-pagos')?.addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest('button[data-action="delete-pago"]') as HTMLButtonElement | null;
+        if (!btn) return;
+        const id = btn.dataset.id;
+        pagosList = pagosList.filter((p) => String(p.id) !== String(id));
+        if (!isMockMode && SUPABASE_URL && id) {
+          await fetch(`${SUPABASE_URL}/rest/v1/pagos?id=eq.${encodeURIComponent(id)}`, {
+            method: 'DELETE',
+            headers: sbHeaders(),
+          });
+        }
+        renderSuperAdmin();
+        showToast('Pago eliminado');
+      });
+
+      // Modal Cliente (Crear / Editar)
+      const modalClient = document.getElementById('modal-client');
+      const selectModalidad = document.getElementById('mc-modalidad') as HTMLSelectElement;
+
+      function toggleModalidadBoxes() {
+        const val = selectModalidad.value;
+        document.getElementById('mc-box-mensual')?.classList.toggle('hidden', val !== 'mensual');
+        const boxUnico = document.getElementById('mc-box-unico');
+        if (boxUnico) {
+          boxUnico.classList.toggle('hidden', val !== 'pago_unico');
+          boxUnico.classList.toggle('grid', val === 'pago_unico');
+        }
+      }
+      selectModalidad?.addEventListener('change', toggleModalidadBoxes);
+
+      function abrirModalCliente(negocio?: Record<string, any>) {
+        const isEdit = Boolean(negocio);
+        (document.getElementById('mc-is-edit') as HTMLInputElement).value = String(isEdit);
+        (document.getElementById('modal-client-title') as HTMLElement).textContent = isEdit
+          ? `Editar: ${negocio?.nombre}`
+          : 'Nuevo Cliente / Demo';
+
+        const idInput = document.getElementById('mc-id') as HTMLInputElement;
+        idInput.value = negocio?.id || '';
+        idInput.readOnly = isEdit;
+
+        (document.getElementById('mc-nombre') as HTMLInputElement).value = negocio?.nombre || '';
+        (document.getElementById('mc-estado') as HTMLSelectElement).value = negocio?.estado || 'demo';
+        selectModalidad.value = negocio?.modalidad_cobro || 'mensual';
+        (document.getElementById('mc-precio-mensual') as HTMLInputElement).value = String(
+          negocio?.precio_mensual ?? 35000
+        );
+        (document.getElementById('mc-vencimiento') as HTMLInputElement).value =
+          negocio?.proximo_vencimiento_pago || '';
+        (document.getElementById('mc-monto-unico') as HTMLInputElement).value = String(
+          negocio?.monto_unico ?? 150000
+        );
+        (document.getElementById('mc-estado-unico') as HTMLSelectElement).value =
+          negocio?.estado_pago_unico || 'pendiente';
+        (document.getElementById('mc-whatsapp') as HTMLInputElement).value = negocio?.whatsapp || '';
+        (document.getElementById('mc-url') as HTMLInputElement).value = negocio?.url_sitio || '';
+        (document.getElementById('mc-email-cliente') as HTMLInputElement).value = negocio?.email_cliente || '';
+        (document.getElementById('mc-password-cliente') as HTMLInputElement).value = '';
+        (document.getElementById('mc-acceso-panel') as HTMLInputElement).checked =
+          negocio?.acceso_panel !== false;
+        (document.getElementById('mc-barra-demo') as HTMLInputElement).checked =
+          negocio?.mostrar_barra_demo !== false;
+
+        toggleModalidadBoxes();
+        modalClient?.classList.remove('hidden');
+      }
+
+      document.getElementById('btn-open-new-client')?.addEventListener('click', () => abrirModalCliente());
+      document.getElementById('btn-close-client-modal')?.addEventListener('click', () => modalClient?.classList.add('hidden'));
+      document.getElementById('btn-cancel-client-modal')?.addEventListener('click', () => modalClient?.classList.add('hidden'));
+
+      document.getElementById('form-modal-client')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const isEdit = (document.getElementById('mc-is-edit') as HTMLInputElement).value === 'true';
+        const id = (document.getElementById('mc-id') as HTMLInputElement).value
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9-]/g, '-');
+
+        const emailCliente = (document.getElementById('mc-email-cliente') as HTMLInputElement).value
+          .trim()
+          .toLowerCase();
+        const passwordCliente = (document.getElementById('mc-password-cliente') as HTMLInputElement).value.trim();
+
+        let createdUserId: string | null = null;
+        if (!isMockMode && SUPABASE_URL && emailCliente && passwordCliente) {
+          try {
+            const signUpRes = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+              method: 'POST',
+              headers: {
+                apikey: SUPABASE_KEY,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email: emailCliente, password: passwordCliente }),
+            });
+            if (signUpRes.ok) {
+              const signUpData = await signUpRes.json();
+              createdUserId = signUpData?.user?.id || signUpData?.id || null;
+            }
+          } catch {
+            // continúa guardando la ficha
+          }
+        }
+
+        const payload: Record<string, any> = {
+          id,
+          nombre: (document.getElementById('mc-nombre') as HTMLInputElement).value.trim(),
+          estado: (document.getElementById('mc-estado') as HTMLSelectElement).value,
+          modalidad_cobro: selectModalidad.value,
+          precio_mensual: Number((document.getElementById('mc-precio-mensual') as HTMLInputElement).value || 0),
+          proximo_vencimiento_pago:
+            (document.getElementById('mc-vencimiento') as HTMLInputElement).value || null,
+          monto_unico: Number((document.getElementById('mc-monto-unico') as HTMLInputElement).value || 0),
+          estado_pago_unico: (document.getElementById('mc-estado-unico') as HTMLSelectElement).value,
+          whatsapp: (document.getElementById('mc-whatsapp') as HTMLInputElement).value.trim(),
+          url_sitio: (document.getElementById('mc-url') as HTMLInputElement).value.trim(),
+          email_cliente: emailCliente,
+          acceso_panel: (document.getElementById('mc-acceso-panel') as HTMLInputElement).checked,
+          mostrar_barra_demo: (document.getElementById('mc-barra-demo') as HTMLInputElement).checked,
+        };
+        if (createdUserId) {
+          payload.user_id = createdUserId;
+        }
+
+        if (isMockMode) {
+          const idx = negociosList.findIndex((n) => n.id === id);
+          if (idx >= 0) {
+            negociosList[idx] = { ...negociosList[idx], ...payload };
+          } else {
+            negociosList.unshift({ ...payload, visitas_demo: 0 });
+          }
+        } else if (SUPABASE_URL) {
+          if (isEdit) {
+            await fetch(`${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(id)}`, {
+              method: 'PATCH',
+              headers: sbHeaders(),
+              body: JSON.stringify(payload),
+            });
+          } else {
+            await fetch(`${SUPABASE_URL}/rest/v1/negocios`, {
+              method: 'POST',
+              headers: sbHeaders(),
+              body: JSON.stringify(payload),
+            });
+          }
+          await cargarDatos();
+        }
+
+        modalClient?.classList.add('hidden');
+        renderSuperAdmin();
+        showToast(isEdit ? 'Cliente actualizado' : 'Cliente creado con éxito');
+      });
+
+      // Modal Registrar Pago
+      const modalPayment = document.getElementById('modal-payment');
+
+      function abrirModalPago(preselectedId?: string) {
+        const select = document.getElementById('mp-negocio-id') as HTMLSelectElement;
+        select.innerHTML = negociosList
+          .map((n) => `<option value="${n.id}">${n.nombre} (${n.modalidad_cobro})</option>`)
+          .join('');
+        if (preselectedId) select.value = preselectedId;
+
+        const neg = negociosList.find((n) => n.id === select.value);
+        if (neg) {
+          (document.getElementById('mp-monto') as HTMLInputElement).value = String(
+            neg.modalidad_cobro === 'pago_unico' ? neg.monto_unico || 150000 : neg.precio_mensual || 35000
+          );
+          (document.getElementById('mp-concepto') as HTMLInputElement).value =
+            neg.modalidad_cobro === 'pago_unico' ? 'Pago Único Web' : 'Mensualidad';
+        }
+        (document.getElementById('mp-fecha') as HTMLInputElement).value = new Date().toISOString().slice(0, 10);
+        modalPayment?.classList.remove('hidden');
+      }
+
+      document.getElementById('mp-negocio-id')?.addEventListener('change', (e) => {
+        const id = (e.target as HTMLSelectElement).value;
+        const neg = negociosList.find((n) => n.id === id);
+        if (neg) {
+          (document.getElementById('mp-monto') as HTMLInputElement).value = String(
+            neg.modalidad_cobro === 'pago_unico' ? neg.monto_unico || 150000 : neg.precio_mensual || 35000
+          );
+        }
+      });
+
+      document.getElementById('btn-open-payment-modal')?.addEventListener('click', () => abrirModalPago());
+      document.getElementById('btn-close-payment-modal')?.addEventListener('click', () => modalPayment?.classList.add('hidden'));
+      document.getElementById('btn-cancel-payment-modal')?.addEventListener('click', () => modalPayment?.classList.add('hidden'));
+
+      document.getElementById('form-modal-payment')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const negocio_id = (document.getElementById('mp-negocio-id') as HTMLSelectElement).value;
+        const monto = Number((document.getElementById('mp-monto') as HTMLInputElement).value || 0);
+        const fecha_pago = (document.getElementById('mp-fecha') as HTMLInputElement).value;
+        const concepto = (document.getElementById('mp-concepto') as HTMLInputElement).value.trim();
+        const metodo = (document.getElementById('mp-metodo') as HTMLSelectElement).value;
+        const avanzarMes = (document.getElementById('mp-avanzar-mes') as HTMLInputElement).checked;
+
+        const nuevoPago = {
+          id: 'p_' + Date.now(),
+          negocio_id,
+          monto,
+          fecha_pago,
+          concepto,
+          metodo,
+        };
+
+        const neg = negociosList.find((n) => n.id === negocio_id);
+        let nuevoVencimiento: string | null = null;
+        if (neg && neg.modalidad_cobro === 'mensual' && avanzarMes) {
+          const baseDate = neg.proximo_vencimiento_pago ? new Date(neg.proximo_vencimiento_pago) : new Date();
+          baseDate.setMonth(baseDate.getMonth() + 1);
+          nuevoVencimiento = baseDate.toISOString().slice(0, 10);
+          neg.proximo_vencimiento_pago = nuevoVencimiento;
+        } else if (neg && neg.modalidad_cobro === 'pago_unico') {
+          neg.estado_pago_unico = 'pagado';
+        }
+
+        if (isMockMode) {
+          pagosList.unshift(nuevoPago);
+        } else if (SUPABASE_URL) {
+          await fetch(`${SUPABASE_URL}/rest/v1/pagos`, {
+            method: 'POST',
+            headers: sbHeaders(),
+            body: JSON.stringify({ negocio_id, monto, fecha_pago, concepto, metodo }),
+          });
+          if (neg && nuevoVencimiento) {
+            await fetch(`${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(negocio_id)}`, {
+              method: 'PATCH',
+              headers: sbHeaders(),
+              body: JSON.stringify({ proximo_vencimiento_pago: nuevoVencimiento }),
+            });
+          } else if (neg && neg.modalidad_cobro === 'pago_unico') {
+            await fetch(`${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(negocio_id)}`, {
+              method: 'PATCH',
+              headers: sbHeaders(),
+              body: JSON.stringify({ estado_pago_unico: 'pagado' }),
+            });
+          }
+          await cargarDatos();
+        }
+
+        modalPayment?.classList.add('hidden');
+        renderSuperAdmin();
+        showToast(`Cobro de ${formatARS(monto)} registrado`);
+      });
+
+      // Tabs Vista Cliente (Estadísticas vs Configuración)
+      document.querySelectorAll<HTMLButtonElement>('.client-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.clientTab;
+          document.querySelectorAll('.client-tab-btn').forEach((b) => {
+            b.classList.remove('bg-violet-600', 'text-white');
+            b.classList.add('bg-zinc-800', 'text-zinc-300');
+          });
+          btn.classList.add('bg-violet-600', 'text-white');
+          btn.classList.remove('bg-zinc-800', 'text-zinc-300');
+
+          document.getElementById('client-panel-stats')?.classList.toggle('hidden', tab !== 'stats');
+          document.getElementById('client-panel-config')?.classList.toggle('hidden', tab !== 'config');
+        });
+      });
+
+      // Botones Copiar Link con UTM en Vista Cliente
+      document.querySelectorAll<HTMLButtonElement>('.utm-copy-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const source = btn.dataset.copyUtm || 'instagram';
+          const baseUrl = (selectedClientNegocio?.url_sitio || window.location.origin).replace(/\/$/, '');
+          const finalUrl = `${baseUrl}/?utm_source=${source}&utm_medium=social`;
+          navigator.clipboard.writeText(finalUrl);
+          showToast(`Link con tracking de ${source.toUpperCase()} copiado: ${finalUrl}`);
+        });
+      });
+
+      // Guardar Configuración en Vista Cliente
+      document.getElementById('form-client-config')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!selectedClientNegocio) return;
+
+        const updates = {
+          banner_activo: (document.getElementById('cfg-banner-activo') as HTMLInputElement).checked,
+          banner_texto: (document.getElementById('cfg-banner-texto') as HTMLInputElement).value.trim(),
+          whatsapp: (document.getElementById('cfg-whatsapp') as HTMLInputElement).value.trim(),
+          email_contacto: (document.getElementById('cfg-email') as HTMLInputElement).value.trim(),
+          mensaje_wpp_default: (document.getElementById('cfg-mensaje-wpp') as HTMLInputElement).value.trim(),
+          direccion: (document.getElementById('cfg-direccion') as HTMLInputElement).value.trim(),
+          horarios: (document.getElementById('cfg-horarios') as HTMLTextAreaElement).value.trim(),
+          instagram_url: (document.getElementById('cfg-instagram') as HTMLInputElement).value.trim(),
+          facebook_url: (document.getElementById('cfg-facebook') as HTMLInputElement).value.trim(),
+          tiktok_url: (document.getElementById('cfg-tiktok') as HTMLInputElement).value.trim(),
+        };
+
+        Object.assign(selectedClientNegocio, updates);
+
+        if (!isMockMode && SUPABASE_URL) {
+          await fetch(
+            `${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(selectedClientNegocio.id)}`,
+            {
+              method: 'PATCH',
+              headers: sbHeaders(),
+              body: JSON.stringify(updates),
+            }
+          );
+        }
+
+        const fb = document.getElementById('cfg-save-feedback');
+        fb?.classList.remove('hidden');
+        setTimeout(() => fb?.classList.add('hidden'), 3000);
+        showToast('Datos actualizados en vivo en el sitio web');
+      });
+
+      // Modal Configurar Supabase Localmente
+      const modalConn = document.getElementById('modal-conn');
+      document.getElementById('btn-open-conn-modal')?.addEventListener('click', () => {
+        (document.getElementById('conn-url') as HTMLInputElement).value = SUPABASE_URL;
+        (document.getElementById('conn-key') as HTMLInputElement).value = SUPABASE_KEY;
+        (document.getElementById('conn-email') as HTMLInputElement).value = SUPERADMIN_EMAIL;
+        modalConn?.classList.remove('hidden');
+      });
+      document.getElementById('btn-close-conn-modal')?.addEventListener('click', () => modalConn?.classList.add('hidden'));
+      document.getElementById('btn-save-conn')?.addEventListener('click', () => {
+        SUPABASE_URL = (document.getElementById('conn-url') as HTMLInputElement).value.trim();
+        SUPABASE_KEY = (document.getElementById('conn-key') as HTMLInputElement).value.trim();
+        SUPERADMIN_EMAIL = (document.getElementById('conn-email') as HTMLInputElement).value.trim().toLowerCase();
+        localStorage.setItem('orion_sb_url', SUPABASE_URL);
+        localStorage.setItem('orion_sb_key', SUPABASE_KEY);
+        localStorage.setItem('orion_sb_admin', SUPERADMIN_EMAIL);
+        modalConn?.classList.add('hidden');
+        showToast('Conexión de Supabase guardada en el navegador');
+      });
+    </script>
+  </body>
+</html>
