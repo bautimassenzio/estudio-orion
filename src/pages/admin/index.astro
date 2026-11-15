@@ -1,9 +1,12 @@
 ---
 import '../../styles/global.css';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
-const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
+const supabaseUrl =
+  import.meta.env.PUBLIC_SUPABASE_URL || 'https://gpsmxjevfocjaoitxdbg.supabase.co';
+const supabaseAnonKey =
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdwc214amV2Zm9jamFvaXR4ZGJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ2ODgwNTcsImV4cCI6MjExMDI2NDA1N30.AW741xfPval4mojw6eBaS1MWbux5uvTdr2ZyIutK_yk';
+const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.com';
 ---
 
 <!doctype html>
@@ -87,41 +90,25 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
             <button
               id="btn-login-submit"
               type="submit"
-              class="w-full rounded-xl bg-violet-600 hover:bg-violet-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition cursor-pointer"
+              class="w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-60 disabled:pointer-events-none px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/20 transition cursor-pointer"
             >
-              Iniciar Sesión
+              <svg
+                id="login-spinner"
+                class="hidden h-4 w-4 animate-spin text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span id="login-btn-text">Iniciar Sesión</span>
             </button>
           </form>
-
-          <!-- Modo Demo Interactiva (Para probar antes de conectar Supabase) -->
-          <div class="mt-6 pt-6 border-t border-zinc-800/80">
-            <div class="flex items-center justify-between mb-2.5">
-              <span class="text-xs font-semibold text-zinc-400">Modo Prueba Rápida (Sin Base de Datos)</span>
-              <button
-                id="btn-open-conn-modal"
-                type="button"
-                class="text-[11px] font-semibold text-violet-400 hover:text-violet-300 underline cursor-pointer"
-              >
-                Configurar Supabase
-              </button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <button
-                id="btn-demo-superadmin"
-                type="button"
-                class="flex items-center justify-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 px-3 py-2.5 text-xs font-semibold text-violet-300 transition cursor-pointer"
-              >
-                👑 Ver Tu CRM (SuperAdmin)
-              </button>
-              <button
-                id="btn-demo-cliente"
-                type="button"
-                class="flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition cursor-pointer"
-              >
-                📊 Ver Vista Cliente
-              </button>
-            </div>
-          </div>
         </div>
 
         <p class="text-center text-xs text-zinc-500 mt-6">
@@ -184,6 +171,13 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-2.5">
+          <button
+            id="btn-crm-preview-client"
+            type="button"
+            class="rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-4 py-2.5 text-xs sm:text-sm font-semibold text-zinc-200 transition cursor-pointer"
+          >
+            👁️ Vista Previa Panel Cliente
+          </button>
           <button
             id="btn-open-payment-modal"
             type="button"
@@ -310,26 +304,32 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
           <div class="flex items-center gap-2.5">
             <h1 id="client-header-name" class="text-2xl font-extrabold text-white">Mi Negocio</h1>
             <span id="client-header-status" class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-              Sitio Online
+              Sitio Activo
             </span>
           </div>
           <p id="client-header-plan" class="text-xs text-zinc-400 mt-1">
-            Panel de estadísticas en tiempo real y configuración de contacto
+            Métricas de rendimiento y configuración general del sitio web
           </p>
         </div>
 
         <div class="flex items-center gap-2">
           <button
             data-client-tab="stats"
-            class="client-tab-btn rounded-xl bg-violet-600 text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+            class="client-tab-btn inline-flex items-center gap-2 rounded-xl bg-violet-600 text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
           >
-            📊 Estadísticas y Orígenes
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <span>Estadísticas y Orígenes</span>
           </button>
           <button
             data-client-tab="config"
-            class="client-tab-btn rounded-xl bg-zinc-800 text-zinc-300 hover:text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+            class="client-tab-btn inline-flex items-center gap-2 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
           >
-            ✏️ Editar Contacto y Redes
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <span>Configuración y Contacto</span>
           </button>
         </div>
       </div>
@@ -339,19 +339,19 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
         <!-- Tarjetas de Métricas -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Visitas a tu Web</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Visitas al Sitio Web</span>
             <p id="client-kpi-visits" class="text-3xl font-extrabold text-white mt-2">0</p>
-            <p class="text-xs text-zinc-500 mt-1">Personas que abrieron tu página</p>
+            <p class="text-xs text-zinc-500 mt-1">Sesiones totales registradas</p>
           </div>
           <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300">Clics a tu WhatsApp</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300">Contactos por WhatsApp</span>
             <p id="client-kpi-wpp" class="text-3xl font-extrabold text-emerald-400 mt-2">0</p>
-            <p class="text-xs text-zinc-400 mt-1">Consultas directas generadas</p>
+            <p class="text-xs text-zinc-400 mt-1">Consultas directas iniciadas desde la web</p>
           </div>
           <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Efectividad (Conversión)</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Tasa de Conversión</span>
             <p id="client-kpi-conv" class="text-3xl font-extrabold text-violet-400 mt-2">0%</p>
-            <p class="text-xs text-zinc-500 mt-1">De cada 100 visitas, cuántos te escriben</p>
+            <p class="text-xs text-zinc-500 mt-1">Porcentaje de visitas que inician consulta</p>
           </div>
         </div>
 
@@ -360,42 +360,47 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
           <!-- ¿De dónde vienen las visitas? -->
           <div class="lg:col-span-7 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 flex flex-col justify-between">
             <div>
-              <h2 class="text-base font-bold text-white">¿De dónde llegan tus visitantes?</h2>
+              <h2 class="text-base font-bold text-white">Origen del Tráfico</h2>
               <p class="text-xs text-zinc-400 mt-0.5">
-                Detectado automáticamente según si entraron desde Instagram, Facebook, Google o link directo.
+                Distribución de visitas y consultas según el canal de procedencia (parámetros UTM y referencia).
               </p>
               <div id="client-origins-bars" class="mt-6 space-y-4"></div>
             </div>
 
             <!-- Generador de Links con UTM para sus Redes -->
             <div class="mt-8 pt-5 border-t border-zinc-800">
-              <p class="text-xs font-bold text-zinc-300 mb-1">
-                🔗 Links inteligentes para pegar en tus redes
-              </p>
+              <div class="flex items-center gap-2 mb-1">
+                <svg class="h-4 w-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                <p class="text-xs font-bold text-zinc-200">
+                  Enlaces de seguimiento para perfiles sociales
+                </p>
+              </div>
               <p class="text-[11px] text-zinc-400 mb-3">
-                Poné estos links en tu biografía de Instagram, Facebook o TikTok para medir exacto cuánta gente entra desde cada red:
+                Utilice estos enlaces en la biografía de sus redes sociales para contabilizar con precisión el tráfico proveniente de cada plataforma:
               </p>
               <div class="flex flex-wrap gap-2">
                 <button
                   data-copy-utm="instagram"
                   type="button"
-                  class="utm-copy-btn rounded-xl border border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20 px-3 py-2 text-xs font-semibold text-pink-300 transition cursor-pointer"
+                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
                 >
-                  📸 Copiar Link para Bio de Instagram
+                  <span>Copiar enlace para Instagram</span>
                 </button>
                 <button
                   data-copy-utm="facebook"
                   type="button"
-                  class="utm-copy-btn rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-2 text-xs font-semibold text-blue-300 transition cursor-pointer"
+                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
                 >
-                  📘 Copiar Link para Facebook
+                  <span>Copiar enlace para Facebook</span>
                 </button>
                 <button
                   data-copy-utm="tiktok"
                   type="button"
-                  class="utm-copy-btn rounded-xl border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
+                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
                 >
-                  🎵 Copiar Link para TikTok
+                  <span>Copiar enlace para TikTok</span>
                 </button>
               </div>
             </div>
@@ -403,9 +408,9 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
 
           <!-- Actividad reciente -->
           <div class="lg:col-span-5 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <h2 class="text-base font-bold text-white">Últimas Consultas a WhatsApp</h2>
+            <h2 class="text-base font-bold text-white">Actividad de Contacto Reciente</h2>
             <p class="text-xs text-zinc-400 mt-0.5">
-              Registro de las últimas personas que tocaron contactar en tu web.
+              Últimas interacciones registradas hacia WhatsApp desde el sitio web.
             </p>
             <div id="client-recent-events" class="mt-5 space-y-3 max-h-80 overflow-y-auto pr-1"></div>
           </div>
@@ -415,9 +420,9 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
       <!-- SUB-VISTA CLIENTE 2: EDITAR CONTACTO, REDES Y BANNER -->
       <div id="client-panel-config" class="hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 sm:p-8">
         <div class="max-w-3xl">
-          <h2 class="text-lg font-bold text-white">Datos de Contacto, Redes y Aviso Superior</h2>
+          <h2 class="text-lg font-bold text-white">Información de Contacto, Redes y Aviso Superior</h2>
           <p class="text-xs text-zinc-400 mt-1">
-            Cualquier cambio que guardes acá se actualiza al instante en tu página web sin necesidad de soporte técnico.
+            Los cambios guardados en esta sección se aplican de forma inmediata en el sitio web público.
           </p>
 
           <form id="form-client-config" class="mt-6 space-y-6">
@@ -426,10 +431,10 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
               <div class="flex items-center justify-between">
                 <div>
                   <label for="cfg-banner-activo" class="text-sm font-bold text-white">
-                    Barra Superior de Anuncio / Promoción
+                    Barra Superior de Anuncio
                   </label>
                   <p class="text-xs text-zinc-400">
-                    Muestra un aviso destacado arriba de todo en tu web (ej: descuento semanal o horario por feriado).
+                    Muestra un comunicado o promoción destacada en la parte superior del sitio web.
                   </p>
                 </div>
                 <input
@@ -442,7 +447,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
                 <input
                   id="cfg-banner-texto"
                   type="text"
-                  placeholder="Ej: 🔥 15% OFF abonando en efectivo o transferencia esta semana"
+                  placeholder="Ej: 15% de descuento abonando por transferencia esta semana"
                   class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
                 />
               </div>
@@ -464,7 +469,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
               </div>
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Email de Contacto Público
+                  Correo Electrónico de Contacto
                 </label>
                 <input
                   id="cfg-email"
@@ -477,12 +482,12 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
 
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                Mensaje predeterminado cuando te escriben por WhatsApp
+                Mensaje predeterminado de WhatsApp
               </label>
               <input
                 id="cfg-mensaje-wpp"
                 type="text"
-                placeholder="Hola! Vi su página web y me gustaría hacer una consulta."
+                placeholder="Hola, vi su sitio web y quisiera realizar una consulta."
                 class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-white focus:border-violet-500 focus:outline-none"
               />
             </div>
@@ -491,7 +496,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Dirección del Negocio / Consultorio
+                  Dirección Comercial
                 </label>
                 <input
                   id="cfg-direccion"
@@ -517,7 +522,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Link de Instagram
+                  URL de Instagram
                 </label>
                 <input
                   id="cfg-instagram"
@@ -528,7 +533,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
               </div>
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Link de Facebook
+                  URL de Facebook
                 </label>
                 <input
                   id="cfg-facebook"
@@ -539,7 +544,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
               </div>
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Link de TikTok
+                  URL de TikTok
                 </label>
                 <input
                   id="cfg-tiktok"
@@ -552,13 +557,28 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
 
             <div class="pt-2 flex items-center gap-4">
               <button
+                id="btn-save-client-config"
                 type="submit"
-                class="rounded-xl bg-violet-600 hover:bg-violet-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
+                class="inline-flex items-center gap-2 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-60 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
               >
-                💾 Guardar Cambios en la Web
+                <svg
+                  id="cfg-save-spinner"
+                  class="hidden h-4 w-4 animate-spin text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                <span id="cfg-save-btn-text">Guardar Cambios</span>
               </button>
               <span id="cfg-save-feedback" class="text-xs font-semibold text-emerald-400 hidden">
-                ✓ ¡Cambios guardados y publicados!
+                Cambios guardados y publicados correctamente.
               </span>
             </div>
           </form>
@@ -1496,12 +1516,12 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
         cargarDatos();
       }
 
-      function entrarComoClienteDemo() {
+      function entrarComoClienteDemo(keepSuperAdmin = false) {
         isMockMode = true;
-        isSuperAdmin = false;
+        isSuperAdmin = keepSuperAdmin;
         negociosList = [...MOCK_NEGOCIOS];
         eventosList = [...MOCK_EVENTOS];
-        (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '📊 Panel Cliente';
+        (document.getElementById('topbar-role-badge') as HTMLElement).textContent = 'Panel de Administración';
         document.getElementById('topbar-demo-indicator')?.classList.remove('hidden');
         openClientView(negociosList[0]);
       }
@@ -1511,13 +1531,17 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
       // =======================================================================
       // Botones Modo Prueba
       document.getElementById('btn-demo-superadmin')?.addEventListener('click', () => entrarComoSuperAdmin(true));
-      document.getElementById('btn-demo-cliente')?.addEventListener('click', () => entrarComoClienteDemo());
+      document.getElementById('btn-demo-cliente')?.addEventListener('click', () => entrarComoClienteDemo(false));
+      document.getElementById('btn-crm-preview-client')?.addEventListener('click', () => entrarComoClienteDemo(true));
 
       // Volver al CRM desde Vista Cliente
       document.getElementById('btn-back-to-crm')?.addEventListener('click', () => {
+        isMockMode = false;
+        (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '👑 SuperAdmin CRM';
+        document.getElementById('topbar-demo-indicator')?.classList.add('hidden');
         document.getElementById('view-cliente')?.classList.add('hidden');
         document.getElementById('view-superadmin')?.classList.remove('hidden');
-        renderSuperAdmin();
+        cargarDatos();
       });
 
       // Logout
@@ -1532,6 +1556,15 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
         document.getElementById('view-login')?.classList.remove('hidden');
       });
 
+      function setLoginLoading(loading: boolean) {
+        const btn = document.getElementById('btn-login-submit') as HTMLButtonElement | null;
+        const spinner = document.getElementById('login-spinner');
+        const txt = document.getElementById('login-btn-text');
+        if (btn) btn.disabled = loading;
+        spinner?.classList.toggle('hidden', !loading);
+        if (txt) txt.textContent = loading ? 'Iniciando sesión...' : 'Iniciar Sesión';
+      }
+
       // Login real con Supabase Auth
       document.getElementById('form-login')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -1542,11 +1575,12 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
         const password = (document.getElementById('login-password') as HTMLInputElement).value;
 
         if (!SUPABASE_URL || !SUPABASE_KEY) {
-          errEl.textContent =
-            'Todavía no configuraste las credenciales de Supabase. Podés tocar "Configurar Supabase" abajo o usar los botones de Modo Prueba Rápida.';
+          errEl.textContent = 'Las credenciales de conexión no están disponibles.';
           errEl.classList.remove('hidden');
           return;
         }
+
+        setLoginLoading(true);
 
         try {
           const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
@@ -1561,6 +1595,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
           if (!res.ok) {
             errEl.textContent = data.error_description || data.msg || 'Correo o contraseña incorrectos.';
             errEl.classList.remove('hidden');
+            setLoginLoading(false);
             return;
           }
 
@@ -1576,12 +1611,15 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
           } else {
             isMockMode = false;
             isSuperAdmin = false;
-            (document.getElementById('topbar-role-badge') as HTMLElement).textContent = '📊 Panel Cliente';
-            cargarDatos();
+            (document.getElementById('topbar-role-badge') as HTMLElement).textContent = 'Panel de Administración';
+            (document.getElementById('topbar-user-email') as HTMLElement).textContent = currentUserEmail;
+            await cargarDatos();
           }
         } catch {
-          errEl.textContent = 'No se pudo conectar con el servidor de Supabase.';
+          errEl.textContent = 'No se pudo conectar con el servidor de autenticación.';
           errEl.classList.remove('hidden');
+        } finally {
+          setLoginLoading(false);
         }
       });
 
@@ -1929,6 +1967,13 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
         e.preventDefault();
         if (!selectedClientNegocio) return;
 
+        const saveBtn = document.getElementById('btn-save-client-config') as HTMLButtonElement | null;
+        const saveSpinner = document.getElementById('cfg-save-spinner');
+        const saveText = document.getElementById('cfg-save-btn-text');
+        if (saveBtn) saveBtn.disabled = true;
+        saveSpinner?.classList.remove('hidden');
+        if (saveText) saveText.textContent = 'Guardando...';
+
         const updates = {
           banner_activo: (document.getElementById('cfg-banner-activo') as HTMLInputElement).checked,
           banner_texto: (document.getElementById('cfg-banner-texto') as HTMLInputElement).value.trim(),
@@ -1944,22 +1989,40 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || '';
 
         Object.assign(selectedClientNegocio, updates);
 
-        if (!isMockMode && SUPABASE_URL) {
-          await fetch(
-            `${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(selectedClientNegocio.id)}`,
-            {
-              method: 'PATCH',
-              headers: sbHeaders(),
-              body: JSON.stringify(updates),
-            }
-          );
+        try {
+          if (!isMockMode && SUPABASE_URL) {
+            await fetch(
+              `${SUPABASE_URL}/rest/v1/negocios?id=eq.${encodeURIComponent(selectedClientNegocio.id)}`,
+              {
+                method: 'PATCH',
+                headers: sbHeaders(),
+                body: JSON.stringify(updates),
+              }
+            );
+          }
+          const fb = document.getElementById('cfg-save-feedback');
+          fb?.classList.remove('hidden');
+          setTimeout(() => fb?.classList.add('hidden'), 3000);
+          showToast('Datos actualizados correctamente en el sitio web');
+        } finally {
+          if (saveBtn) saveBtn.disabled = false;
+          saveSpinner?.classList.add('hidden');
+          if (saveText) saveText.textContent = 'Guardar Cambios';
         }
-
-        const fb = document.getElementById('cfg-save-feedback');
-        fb?.classList.remove('hidden');
-        setTimeout(() => fb?.classList.add('hidden'), 3000);
-        showToast('Datos actualizados en vivo en el sitio web');
       });
+
+      // Restaurar sesión activa automáticamente si el usuario recarga la página
+      if (accessToken && currentUserEmail) {
+        if (!SUPERADMIN_EMAIL || currentUserEmail === SUPERADMIN_EMAIL) {
+          entrarComoSuperAdmin(false);
+        } else {
+          isMockMode = false;
+          isSuperAdmin = false;
+          (document.getElementById('topbar-role-badge') as HTMLElement).textContent = 'Panel de Administración';
+          (document.getElementById('topbar-user-email') as HTMLElement).textContent = currentUserEmail;
+          cargarDatos();
+        }
+      }
 
       // Modal Configurar Supabase Localmente
       const modalConn = document.getElementById('modal-conn');
