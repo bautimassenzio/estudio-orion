@@ -16,7 +16,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/png" href="/logo.png" />
-    <title>Panel de Control & CRM | Estudio Orion</title>
+    <title>Panel de Métricas y Gestión Web | Estudio Orion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,15 +44,15 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
       <div class="w-full max-w-md">
         <!-- Logo & Header -->
         <div class="text-center mb-8">
-          <a href="/" class="inline-flex items-center gap-2.5 mb-3 group">
+          <div class="inline-flex items-center gap-2.5 mb-3">
             <div class="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400 font-extrabold text-lg">
               O
             </div>
             <span class="font-bold text-xl tracking-tight text-white">Estudio Orion</span>
-          </a>
-          <h1 class="text-2xl font-extrabold text-white">Panel de Administración</h1>
-          <p class="text-sm text-zinc-400 mt-1">
-            Ingresá con tu cuenta para ver tus estadísticas, gestionar tu web o administrar clientes.
+          </div>
+          <h1 class="text-2xl font-extrabold text-white">Panel de Métricas y Gestión Web</h1>
+          <p class="text-sm text-zinc-400 mt-1.5">
+            Ingresá con tu cuenta para consultar las métricas de visitas, conversiones y configurar los datos de tu sitio web.
           </p>
         </div>
 
@@ -110,10 +110,6 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
             </button>
           </form>
         </div>
-
-        <p class="text-center text-xs text-zinc-500 mt-6">
-          <a href="/" class="hover:text-zinc-300 transition">← Volver a orionestudio.com.ar</a>
-        </p>
       </div>
     </main>
 
@@ -121,38 +117,38 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
     <!-- BARRA SUPERIOR COMPARTIDA (LOGUEADO)                                  -->
     <!-- ===================================================================== -->
     <header id="admin-topbar" class="hidden sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <a href="/" class="flex items-center gap-2">
+      <div class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <a href="/" class="flex items-center gap-2 shrink-0">
             <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white font-extrabold text-sm">
               O
             </div>
-            <span class="font-bold text-base text-white hidden sm:inline">Orion Admin</span>
+            <span class="font-bold text-sm sm:text-base text-white">Orion</span>
           </a>
-          <span id="topbar-role-badge" class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-violet-500/15 text-violet-300 border border-violet-500/30">
+          <span id="topbar-role-badge" class="truncate rounded-full px-2.5 py-0.5 text-[11px] sm:text-xs font-bold bg-violet-500/15 text-violet-300 border border-violet-500/30">
             SuperAdmin
           </span>
-          <span id="topbar-demo-indicator" class="hidden rounded-full px-2.5 py-0.5 text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">
-            Modo Prueba Local
+          <span id="topbar-demo-indicator" class="hidden sm:inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            Vista Previa
           </span>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
           <!-- Botón para volver al CRM cuando SuperAdmin está espiando la vista de un cliente -->
           <button
             id="btn-back-to-crm"
             type="button"
-            class="hidden rounded-xl border border-violet-500/40 bg-violet-500/15 hover:bg-violet-500/25 px-3.5 py-1.5 text-xs font-bold text-violet-200 transition cursor-pointer"
+            class="hidden rounded-xl border border-violet-500/40 bg-violet-500/15 hover:bg-violet-500/25 px-2.5 sm:px-3.5 py-1.5 text-[11px] sm:text-xs font-bold text-violet-200 transition cursor-pointer"
           >
-            ← Volver a mi CRM
+            ← <span class="hidden xs:inline">Volver al</span> CRM
           </button>
-          <span id="topbar-user-email" class="text-xs text-zinc-400 hidden md:inline"></span>
+          <span id="topbar-user-email" class="text-xs text-zinc-400 hidden lg:inline"></span>
           <button
             id="btn-logout"
             type="button"
-            class="rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 px-3.5 py-1.5 text-xs font-semibold text-zinc-300 transition cursor-pointer"
+            class="rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 px-2.5 sm:px-3.5 py-1.5 text-[11px] sm:text-xs font-semibold text-zinc-300 transition cursor-pointer"
           >
-            Cerrar Sesión
+            Salir
           </button>
         </div>
       </div>
@@ -161,104 +157,105 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
     <!-- ===================================================================== -->
     <!-- PANTALLA 2: VISTA SUPERADMIN (CRM + CONTROL DE PAGOS Y DEMOS)         -->
     <!-- ===================================================================== -->
-    <section id="view-superadmin" class="hidden relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <section id="view-superadmin" class="hidden relative z-10 mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
       <!-- Encabezado y Acciones Principales -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white">CRM & Control de Licencias</h1>
-          <p class="text-sm text-zinc-400 mt-1">
+          <h1 class="text-xl sm:text-3xl font-extrabold text-white">CRM & Control de Licencias</h1>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-1">
             Ninguna web se desactiva sola por fecha: vos decidís manualmente cuándo activar o suspender cada sitio.
           </p>
         </div>
-        <div class="flex flex-wrap items-center gap-2.5">
+        <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
           <button
             id="btn-crm-preview-client"
             type="button"
-            class="rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-4 py-2.5 text-xs sm:text-sm font-semibold text-zinc-200 transition cursor-pointer"
+            class="col-span-2 sm:col-span-1 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3.5 py-2.5 text-xs font-semibold text-zinc-200 transition cursor-pointer"
           >
             👁️ Vista Previa Panel Cliente
           </button>
           <button
             id="btn-open-payment-modal"
             type="button"
-            class="rounded-xl border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-4 py-2.5 text-xs sm:text-sm font-bold text-emerald-300 transition cursor-pointer"
+            class="rounded-xl border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-3.5 py-2.5 text-xs font-bold text-emerald-300 transition cursor-pointer"
           >
             💸 Registrar Pago
           </button>
           <button
             id="btn-open-new-client"
             type="button"
-            class="rounded-xl bg-violet-600 hover:bg-violet-500 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
+            class="rounded-xl bg-violet-600 hover:bg-violet-500 px-3.5 py-2.5 text-xs font-bold text-white shadow-lg shadow-violet-600/25 transition cursor-pointer"
           >
-            + Nuevo Cliente / Demo
+            + Nuevo Cliente
           </button>
         </div>
       </div>
 
-      <!-- KPIs Financieros y Comerciales -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Cobrado este mes</span>
-          <p id="crm-kpi-cobrado" class="text-2xl font-extrabold text-emerald-400 mt-1">$0</p>
-          <p id="crm-kpi-cobrado-sub" class="text-xs text-zinc-500 mt-1">Mensualidades + Pagos únicos</p>
+      <!-- KPIs Financieros y Comerciales (2x2 en Mobile, 4 en Desktop) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-5">
+          <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">Cobrado este mes</span>
+          <p id="crm-kpi-cobrado" class="text-lg sm:text-2xl font-extrabold text-emerald-400 mt-1">$0</p>
+          <p id="crm-kpi-cobrado-sub" class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">Mensual + Únicos</p>
         </div>
-        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Mensualidades Recurrentes</span>
-          <p id="crm-kpi-mrr" class="text-2xl font-extrabold text-white mt-1">$0 / mes</p>
-          <p id="crm-kpi-vencidos" class="text-xs text-amber-400 mt-1">0 pendientes de cobro</p>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-5">
+          <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">Recurrente (MRR)</span>
+          <p id="crm-kpi-mrr" class="text-lg sm:text-2xl font-extrabold text-white mt-1">$0 / mes</p>
+          <p id="crm-kpi-vencidos" class="text-[11px] sm:text-xs text-amber-400 mt-1 truncate">0 pendientes</p>
         </div>
-        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Clientes Activos</span>
-          <p id="crm-kpi-activos" class="text-2xl font-extrabold text-white mt-1">0</p>
-          <p id="crm-kpi-activos-sub" class="text-xs text-zinc-500 mt-1">0 mensuales · 0 pago único</p>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-5">
+          <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">Clientes Activos</span>
+          <p id="crm-kpi-activos" class="text-lg sm:text-2xl font-extrabold text-white mt-1">0</p>
+          <p id="crm-kpi-activos-sub" class="text-[11px] sm:text-xs text-zinc-500 mt-1 truncate">0 mens · 0 único</p>
         </div>
-        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Demos en Prospección</span>
-          <p id="crm-kpi-demos" class="text-2xl font-extrabold text-violet-400 mt-1">0</p>
-          <p id="crm-kpi-demos-visitas" class="text-xs text-zinc-400 mt-1">0 aperturas totales</p>
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-5">
+          <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-400">Demos Enviadas</span>
+          <p id="crm-kpi-demos" class="text-lg sm:text-2xl font-extrabold text-violet-400 mt-1">0</p>
+          <p id="crm-kpi-demos-visitas" class="text-[11px] sm:text-xs text-zinc-400 mt-1 truncate">0 aperturas</p>
         </div>
       </div>
 
       <!-- Pestañas SuperAdmin: Proyectos vs Historial de Caja -->
-      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-3">
-        <div class="flex items-center gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-3">
+        <div class="grid grid-cols-2 sm:flex items-center gap-2">
           <button
             data-crm-tab="negocios"
-            class="crm-tab-btn rounded-xl bg-violet-600 text-white px-4 py-2 text-xs font-bold transition cursor-pointer"
+            class="crm-tab-btn rounded-xl bg-violet-600 text-white px-3.5 py-2 text-xs font-bold transition cursor-pointer text-center"
           >
             🌐 Clientes y Demos
           </button>
           <button
             data-crm-tab="pagos"
-            class="crm-tab-btn rounded-xl bg-zinc-900 text-zinc-400 hover:text-white px-4 py-2 text-xs font-bold transition cursor-pointer"
+            class="crm-tab-btn rounded-xl bg-zinc-900 text-zinc-400 hover:text-white px-3.5 py-2 text-xs font-bold transition cursor-pointer text-center"
           >
-            💰 Historial de Pagos (<span id="crm-count-pagos">0</span>)
+            💰 Pagos (<span id="crm-count-pagos">0</span>)
           </button>
         </div>
 
-        <!-- Filtros rápidos de clientes -->
-        <div id="crm-filters" class="flex flex-wrap items-center gap-1.5">
-          <button data-filter="todos" class="crm-filter-btn rounded-lg bg-zinc-800 text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+        <!-- Filtros rápidos de clientes (Scroll horizontal limpio en mobile) -->
+        <div id="crm-filters" class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+          <button data-filter="todos" class="crm-filter-btn shrink-0 rounded-lg bg-zinc-800 text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
             Todos
           </button>
-          <button data-filter="demo" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+          <button data-filter="demo" class="crm-filter-btn shrink-0 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
             🚀 Demos
           </button>
-          <button data-filter="mensual" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+          <button data-filter="mensual" class="crm-filter-btn shrink-0 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
             🔄 Mensuales
           </button>
-          <button data-filter="pago_unico" class="crm-filter-btn rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
+          <button data-filter="pago_unico" class="crm-filter-btn shrink-0 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white px-3 py-1.5 text-xs font-semibold cursor-pointer">
             💎 Pago Único
           </button>
-          <button data-filter="vencido" class="crm-filter-btn rounded-lg bg-zinc-900 text-amber-400 hover:text-amber-300 px-3 py-1.5 text-xs font-semibold cursor-pointer">
-            ⚠️ Pago Pendiente
+          <button data-filter="vencido" class="crm-filter-btn shrink-0 rounded-lg bg-zinc-900 text-amber-400 hover:text-amber-300 px-3 py-1.5 text-xs font-semibold cursor-pointer">
+            ⚠️ Pendientes
           </button>
         </div>
       </div>
 
-      <!-- TABLA 1: NEGOCIOS (CLIENTES Y DEMOS) -->
+      <!-- TABLA / TARJETAS 1: NEGOCIOS (CLIENTES Y DEMOS) -->
       <div id="crm-panel-negocios" class="rounded-2xl border border-zinc-800/90 bg-zinc-900/60 overflow-hidden">
-        <div class="overflow-x-auto">
+        <!-- Vista Tabla Desktop -->
+        <div class="hidden md:block overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-900/90">
@@ -272,6 +269,8 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
             <tbody id="crm-tbody-negocios" class="divide-y divide-zinc-800/60 text-sm"></tbody>
           </table>
         </div>
+        <!-- Vista Tarjetas Mobile -->
+        <div id="crm-mobile-negocios" class="md:hidden divide-y divide-zinc-800/70"></div>
       </div>
 
       <!-- TABLA 2: HISTORIAL DE PAGOS / CAJA -->
@@ -280,145 +279,266 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
           <table class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-zinc-800 text-[11px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-900/90">
-                <th class="py-3.5 px-4">Fecha</th>
-                <th class="py-3.5 px-4">Cliente</th>
-                <th class="py-3.5 px-4">Concepto</th>
-                <th class="py-3.5 px-4">Método</th>
-                <th class="py-3.5 px-4">Monto</th>
-                <th class="py-3.5 px-4 text-right">Acción</th>
+                <th class="py-3 px-3 sm:px-4">Fecha</th>
+                <th class="py-3 px-3 sm:px-4">Cliente</th>
+                <th class="py-3 px-3 sm:px-4 hidden sm:table-cell">Concepto</th>
+                <th class="py-3 px-3 sm:px-4 hidden md:table-cell">Método</th>
+                <th class="py-3 px-3 sm:px-4">Monto</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Acción</th>
               </tr>
             </thead>
-            <tbody id="crm-tbody-pagos" class="divide-y divide-zinc-800/60 text-sm"></tbody>
+            <tbody id="crm-tbody-pagos" class="divide-y divide-zinc-800/60 text-xs sm:text-sm"></tbody>
           </table>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- PANTALLA 3: VISTA CLIENTE (ESTADÍSTICAS UTM + EDICIÓN DE SITIO)       -->
+    <!-- PANTALLA 3: VISTA CLIENTE (MÉTRICAS MENSUALES, ENLACES UTM Y CONFIG)  -->
     <!-- ===================================================================== -->
-    <section id="view-cliente" class="hidden relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      <!-- Encabezado del Cliente -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-zinc-800/90 bg-zinc-900/75 p-6">
-        <div>
-          <div class="flex items-center gap-2.5">
-            <h1 id="client-header-name" class="text-2xl font-extrabold text-white">Mi Negocio</h1>
-            <span id="client-header-status" class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-              Sitio Activo
-            </span>
+    <section id="view-cliente" class="hidden relative z-10 mx-auto max-w-6xl px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-7">
+      <!-- Encabezado del Cliente + Navegación de 3 Pestañas -->
+      <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/75 p-4 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h1 id="client-header-name" class="text-xl sm:text-2xl font-extrabold text-white">Mi Negocio</h1>
+              <span id="client-header-status" class="rounded-full px-2.5 py-0.5 text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                Sitio Activo
+              </span>
+            </div>
+            <p id="client-header-plan" class="text-xs text-zinc-400 mt-1">
+              Métricas de rendimiento mensual, seguimiento de campañas y configuración del sitio
+            </p>
           </div>
-          <p id="client-header-plan" class="text-xs text-zinc-400 mt-1">
-            Métricas de rendimiento y configuración general del sitio web
-          </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <!-- Barra de 3 Pestañas (Full Responsive en Mobile y Desktop) -->
+        <div class="grid grid-cols-3 sm:inline-flex w-full sm:w-auto rounded-xl bg-zinc-950/90 p-1 border border-zinc-800/80 gap-1">
           <button
             data-client-tab="stats"
-            class="client-tab-btn inline-flex items-center gap-2 rounded-xl bg-violet-600 text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+            class="client-tab-btn inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg bg-violet-600 text-white px-2.5 sm:px-4 py-2 text-[11px] sm:text-xs font-bold transition cursor-pointer"
           >
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
-            <span>Estadísticas y Orígenes</span>
+            <span class="truncate">Métricas</span>
+          </button>
+          <button
+            data-client-tab="utm"
+            class="client-tab-btn inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg text-zinc-400 hover:text-white px-2.5 sm:px-4 py-2 text-[11px] sm:text-xs font-bold transition cursor-pointer"
+          >
+            <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+            <span class="truncate">Enlaces UTM</span>
           </button>
           <button
             data-client-tab="config"
-            class="client-tab-btn inline-flex items-center gap-2 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white px-4 py-2.5 text-xs font-bold transition cursor-pointer"
+            class="client-tab-btn inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg text-zinc-400 hover:text-white px-2.5 sm:px-4 py-2 text-[11px] sm:text-xs font-bold transition cursor-pointer"
           >
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
-            <span>Configuración y Contacto</span>
+            <span class="truncate">Configuración</span>
           </button>
         </div>
       </div>
 
-      <!-- SUB-VISTA CLIENTE 1: ESTADÍSTICAS Y UTM -->
-      <div id="client-panel-stats" class="space-y-6">
-        <!-- Tarjetas de Métricas -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Visitas al Sitio Web</span>
-            <p id="client-kpi-visits" class="text-3xl font-extrabold text-white mt-2">0</p>
-            <p class="text-xs text-zinc-500 mt-1">Sesiones totales registradas</p>
+      <!-- =================================================================== -->
+      <!-- SUB-VISTA CLIENTE 1: RENDIMIENTO Y COMPARATIVA MENSUAL              -->
+      <!-- =================================================================== -->
+      <div id="client-panel-stats" class="space-y-5 sm:space-y-6">
+        <!-- Barra de Filtro de Mes / Período -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-zinc-800/80 bg-zinc-900/50 px-4 py-3.5">
+          <div>
+            <h2 class="text-sm font-bold text-white">Resumen de Rendimiento Mensual</h2>
+            <p id="client-period-subtitle" class="text-xs text-zinc-400">
+              Comparativa automática con el período mensual anterior
+            </p>
           </div>
-          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300">Contactos por WhatsApp</span>
-            <p id="client-kpi-wpp" class="text-3xl font-extrabold text-emerald-400 mt-2">0</p>
-            <p class="text-xs text-zinc-400 mt-1">Consultas directas iniciadas desde la web</p>
-          </div>
-          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Tasa de Conversión</span>
-            <p id="client-kpi-conv" class="text-3xl font-extrabold text-violet-400 mt-2">0%</p>
-            <p class="text-xs text-zinc-500 mt-1">Porcentaje de visitas que inician consulta</p>
+          <div class="flex items-center gap-2">
+            <label for="client-month-select" class="text-xs font-semibold text-zinc-400 shrink-0">
+              Período:
+            </label>
+            <select
+              id="client-month-select"
+              class="w-full sm:w-auto rounded-xl border border-zinc-700 bg-zinc-950 px-3.5 py-2 text-xs font-semibold text-white focus:border-violet-500 focus:outline-none cursor-pointer"
+            ></select>
           </div>
         </div>
 
-        <!-- Desglose por Red Social / Origen UTM + Últimos Clics -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- ¿De dónde vienen las visitas? -->
-          <div class="lg:col-span-7 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 flex flex-col justify-between">
+        <!-- Tarjetas de Métricas con Comparativa Mensual -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5 sm:p-6 flex flex-col justify-between">
+            <div class="flex items-start justify-between gap-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Visitas al Sitio Web</span>
+              <span id="client-kpi-visits-diff" class="rounded-full px-2 py-0.5 text-[11px] font-bold bg-zinc-800 text-zinc-300">
+                0%
+              </span>
+            </div>
+            <p id="client-kpi-visits" class="text-3xl font-extrabold text-white mt-3">0</p>
+            <p id="client-kpi-visits-prev" class="text-xs text-zinc-500 mt-1.5">
+              Mes anterior: 0 visitas
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 sm:p-6 flex flex-col justify-between">
+            <div class="flex items-start justify-between gap-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300">Contactos por WhatsApp</span>
+              <span id="client-kpi-wpp-diff" class="rounded-full px-2 py-0.5 text-[11px] font-bold bg-emerald-500/20 text-emerald-300">
+                0%
+              </span>
+            </div>
+            <p id="client-kpi-wpp" class="text-3xl font-extrabold text-emerald-400 mt-3">0</p>
+            <p id="client-kpi-wpp-prev" class="text-xs text-zinc-400 mt-1.5">
+              Mes anterior: 0 contactos
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5 sm:p-6 flex flex-col justify-between">
+            <div class="flex items-start justify-between gap-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Tasa de Conversión</span>
+              <span id="client-kpi-conv-diff" class="rounded-full px-2 py-0.5 text-[11px] font-bold bg-zinc-800 text-zinc-300">
+                0%
+              </span>
+            </div>
+            <p id="client-kpi-conv" class="text-3xl font-extrabold text-violet-400 mt-3">0%</p>
+            <p id="client-kpi-conv-prev" class="text-xs text-zinc-500 mt-1.5">
+              Porcentaje de visitas que inician consulta
+            </p>
+          </div>
+        </div>
+
+        <!-- Comparativa de Evolución Mensual (Últimos 4 meses) -->
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
             <div>
-              <h2 class="text-base font-bold text-white">Origen del Tráfico</h2>
+              <h2 class="text-sm sm:text-base font-bold text-white">Evolución y Comparativa Mensual</h2>
               <p class="text-xs text-zinc-400 mt-0.5">
-                Distribución de visitas y consultas según el canal de procedencia (parámetros UTM y referencia).
+                Comparación de visitas totales y consultas generadas a WhatsApp durante los últimos meses.
               </p>
-              <div id="client-origins-bars" class="mt-6 space-y-4"></div>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+              <span class="inline-flex items-center gap-1.5 text-zinc-300">
+                <span class="h-2.5 w-2.5 rounded-xs bg-violet-500"></span> Visitas
+              </span>
+              <span class="inline-flex items-center gap-1.5 text-zinc-300">
+                <span class="h-2.5 w-2.5 rounded-xs bg-emerald-400"></span> Consultas WhatsApp
+              </span>
+            </div>
+          </div>
+          <div id="client-monthly-chart" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"></div>
+        </div>
+
+        <!-- Desglose por Red Social / Origen + Actividad Reciente del Mes -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+          <!-- Origen del Tráfico -->
+          <div class="lg:col-span-7 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-6 flex flex-col justify-between">
+            <div>
+              <h2 class="text-sm sm:text-base font-bold text-white">Origen del Tráfico en el Período</h2>
+              <p class="text-xs text-zinc-400 mt-0.5">
+                Distribución de visitas y consultas según el canal de procedencia detectado.
+              </p>
+              <div id="client-origins-bars" class="mt-5 space-y-4"></div>
             </div>
 
-            <!-- Generador de Links con UTM para sus Redes -->
-            <div class="mt-8 pt-5 border-t border-zinc-800">
-              <div class="flex items-center gap-2 mb-1">
-                <svg class="h-4 w-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-                <p class="text-xs font-bold text-zinc-200">
-                  Enlaces de seguimiento para perfiles sociales
-                </p>
-              </div>
-              <p class="text-[11px] text-zinc-400 mb-3">
-                Utilice estos enlaces en la biografía de sus redes sociales para contabilizar con precisión el tráfico proveniente de cada plataforma:
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <button
-                  data-copy-utm="instagram"
-                  type="button"
-                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
-                >
-                  <span>Copiar enlace para Instagram</span>
-                </button>
-                <button
-                  data-copy-utm="facebook"
-                  type="button"
-                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
-                >
-                  <span>Copiar enlace para Facebook</span>
-                </button>
-                <button
-                  data-copy-utm="tiktok"
-                  type="button"
-                  class="utm-copy-btn inline-flex items-center gap-1.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-800 px-3 py-2 text-xs font-semibold text-zinc-200 transition cursor-pointer"
-                >
-                  <span>Copiar enlace para TikTok</span>
-                </button>
-              </div>
+            <div class="mt-6 pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <span class="text-xs text-zinc-400">
+                ¿Desea medir enlaces en su biografía de Instagram o campañas publicitarias?
+              </span>
+              <button
+                id="btn-goto-utm-tab"
+                type="button"
+                class="text-xs font-bold text-violet-400 hover:text-violet-300 underline text-left sm:text-right shrink-0 cursor-pointer"
+              >
+                Ir a Enlaces UTM →
+              </button>
             </div>
           </div>
 
           <!-- Actividad reciente -->
-          <div class="lg:col-span-5 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6">
-            <h2 class="text-base font-bold text-white">Actividad de Contacto Reciente</h2>
+          <div class="lg:col-span-5 rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-6">
+            <h2 class="text-sm sm:text-base font-bold text-white">Actividad de Contacto en el Período</h2>
             <p class="text-xs text-zinc-400 mt-0.5">
-              Últimas interacciones registradas hacia WhatsApp desde el sitio web.
+              Interacciones registradas hacia WhatsApp desde el sitio web.
             </p>
-            <div id="client-recent-events" class="mt-5 space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+            <div id="client-recent-events" class="mt-4 space-y-2.5 max-h-72 overflow-y-auto pr-1"></div>
           </div>
         </div>
       </div>
 
-      <!-- SUB-VISTA CLIENTE 2: EDITAR CONTACTO, REDES Y BANNER -->
-      <div id="client-panel-config" class="hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 sm:p-8">
+      <!-- =================================================================== -->
+      <!-- SUB-VISTA CLIENTE 2: PESTAÑA EXCLUSIVA DE ENLACES UTM               -->
+      <!-- =================================================================== -->
+      <div id="client-panel-utm" class="hidden space-y-6">
+        <div class="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5 sm:p-7">
+          <div class="max-w-3xl">
+            <h2 class="text-base sm:text-lg font-bold text-white">Enlaces de Seguimiento (Parámetros UTM)</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-1 leading-relaxed">
+              Utilice estos enlaces personalizados en la biografía de sus perfiles sociales o en sus campañas publicitarias. Cuando un visitante ingresa a través de ellos, el sistema identifica automáticamente la red social de origen y contabiliza tanto la visita como las consultas enviadas a WhatsApp.
+            </p>
+          </div>
+
+          <!-- Lista de Enlaces Listos para Copiar -->
+          <div id="client-utm-cards-list" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+          <!-- Generador de Enlace Personalizado para Campañas -->
+          <div class="mt-8 pt-6 border-t border-zinc-800">
+            <h3 class="text-sm font-bold text-white">Generador de Enlace para Campaña Específica</h3>
+            <p class="text-xs text-zinc-400 mt-0.5">
+              Cree un enlace personalizado para medir una publicación, historia destacada o anuncio específico.
+            </p>
+
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+              <div class="sm:col-span-4">
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Canal / Red Social
+                </label>
+                <select
+                  id="utm-custom-source"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs font-semibold text-white focus:border-violet-500 focus:outline-none"
+                >
+                  <option value="instagram">Instagram</option>
+                  <option value="facebook">Facebook</option>
+                  <option value="google">Google Ads</option>
+                  <option value="tiktok">TikTok</option>
+                  <option value="whatsapp">Difusión de WhatsApp</option>
+                </select>
+              </div>
+              <div class="sm:col-span-5">
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  Identificador de Campaña (Opcional)
+                </label>
+                <input
+                  id="utm-custom-campaign"
+                  type="text"
+                  placeholder="ej: promo-invierno o historia-turnos"
+                  class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+              <div class="sm:col-span-3">
+                <button
+                  id="btn-copy-custom-utm"
+                  type="button"
+                  class="w-full rounded-xl bg-violet-600 hover:bg-violet-500 px-4 py-2.5 text-xs font-bold text-white transition cursor-pointer"
+                >
+                  Copiar Enlace
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-3 rounded-xl border border-zinc-800/80 bg-zinc-950 px-3.5 py-2.5 flex items-center justify-between gap-2 overflow-x-auto">
+              <code id="utm-custom-preview" class="text-[11px] text-zinc-300 whitespace-nowrap"></code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- SUB-VISTA CLIENTE 3: EDITAR CONTACTO, REDES Y BANNER                -->
+      <!-- =================================================================== -->
+      <div id="client-panel-config" class="hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-4 sm:p-8">
         <div class="max-w-3xl">
           <h2 class="text-lg font-bold text-white">Información de Contacto, Redes y Aviso Superior</h2>
           <p class="text-xs text-zinc-400 mt-1">
@@ -1092,7 +1212,17 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
         },
       ];
 
+      function dateOffsetMonths(monthsAgo: number, dayOffset = 2, hourOffset = 14): string {
+        const d = new Date();
+        d.setDate(1);
+        d.setMonth(d.getMonth() - monthsAgo);
+        d.setDate(Math.min(25, Math.max(1, dayOffset)));
+        d.setHours(hourOffset, 20, 0, 0);
+        return d.toISOString();
+      }
+
       const MOCK_EVENTOS: Record<string, any>[] = [
+        // Mes actual (14 visitas, 6 clics a WhatsApp)
         { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 600000).toISOString() },
         { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Agendar Diagnóstico por WhatsApp', created_at: new Date(Date.now() - 540000).toISOString() },
         { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 3600000).toISOString() },
@@ -1103,7 +1233,47 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
         { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: new Date(Date.now() - 28000000).toISOString() },
         { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 50000000).toISOString() },
         { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Chatear directo por WhatsApp', created_at: new Date(Date.now() - 49000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: new Date(Date.now() - 86400000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Google', detalle: 'Consulta Ortodoncia Invisible', created_at: new Date(Date.now() - 86000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 120000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'TikTok', detalle: '/', created_at: new Date(Date.now() - 150000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'TikTok', detalle: 'Consulta Blanqueamiento LED', created_at: new Date(Date.now() - 149500000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: new Date(Date.now() - 175000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 210000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: new Date(Date.now() - 240000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: new Date(Date.now() - 280000000).toISOString() },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: new Date(Date.now() - 310000000).toISOString() },
+        // Mes anterior (9 visitas, 3 clics a WhatsApp)
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(1, 4, 11) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Agendar Diagnóstico por WhatsApp', created_at: dateOffsetMonths(1, 4, 11) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(1, 7, 16) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(1, 10, 18) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Google', detalle: 'Consulta Implantes', created_at: dateOffsetMonths(1, 12, 10) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(1, 12, 10) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Facebook', detalle: '/', created_at: dateOffsetMonths(1, 15, 19) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: dateOffsetMonths(1, 18, 13) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(1, 21, 20) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Turno Limpieza Dental', created_at: dateOffsetMonths(1, 21, 20) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(1, 24, 12) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(1, 25, 17) },
+        // Hace 2 meses (6 visitas, 2 clics a WhatsApp)
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(2, 5, 15) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Agendar Diagnóstico', created_at: dateOffsetMonths(2, 5, 15) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(2, 11, 12) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: dateOffsetMonths(2, 14, 18) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(2, 19, 10) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Google', detalle: 'Consulta Urgencia', created_at: dateOffsetMonths(2, 22, 16) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(2, 22, 16) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Facebook', detalle: '/', created_at: dateOffsetMonths(2, 24, 19) },
+        // Hace 3 meses (4 visitas, 1 clic a WhatsApp)
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(3, 8, 14) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Google', detalle: '/', created_at: dateOffsetMonths(3, 12, 11) },
+        { negocio_id: 'clinica-nova', tipo: 'click_whatsapp', origen: 'Instagram', detalle: 'Consulta General', created_at: dateOffsetMonths(3, 17, 16) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Instagram', detalle: '/', created_at: dateOffsetMonths(3, 17, 16) },
+        { negocio_id: 'clinica-nova', tipo: 'vista_pagina', origen: 'Directo', detalle: '/', created_at: dateOffsetMonths(3, 23, 19) },
       ];
+
+      let clientEventsCache: Record<string, any>[] = [];
 
       function showToast(msg: string) {
         const toast = document.getElementById('admin-toast');
@@ -1170,6 +1340,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
 
       function renderNegociosTable() {
         const tbody = document.getElementById('crm-tbody-negocios');
+        const mobileList = document.getElementById('crm-mobile-negocios');
         if (!tbody) return;
         const hoyStr = new Date().toISOString().slice(0, 10);
 
@@ -1189,120 +1360,177 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
 
         if (filtered.length === 0) {
           tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-zinc-500">No hay negocios en este filtro.</td></tr>`;
+          if (mobileList) {
+            mobileList.innerHTML = `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 text-center text-sm text-zinc-500">No hay negocios en este filtro.</div>`;
+          }
           return;
         }
 
-        tbody.innerHTML = filtered
-          .map((n) => {
-            // Badge de estado manual
-            let estadoBadge = '';
-            if (n.estado === 'activo') {
-              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 text-xs font-bold text-emerald-300">🟢 Activo</span>`;
-            } else if (n.estado === 'demo') {
-              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-violet-500/15 border border-violet-500/30 px-2.5 py-1 text-xs font-bold text-violet-300">🚀 En Demo</span>`;
-            } else {
-              estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-red-500/15 border border-red-500/30 px-2.5 py-1 text-xs font-bold text-red-300">🔴 Suspendido</span>`;
-            }
+        const rowsHtml: string[] = [];
+        const mobileCardsHtml: string[] = [];
 
-            // Info de Plan y Cobranza
-            let planHtml = '';
-            if (n.modalidad_cobro === 'mensual') {
-              const venc = n.proximo_vencimiento_pago || '';
-              const isVencido = venc && venc < hoyStr;
-              planHtml = `
-                <div class="font-semibold text-white">🔄 Mensual · ${formatARS(n.precio_mensual || 35000)}</div>
-                <div class="text-xs ${isVencido ? 'text-amber-400 font-bold' : 'text-zinc-400'}">
+        filtered.forEach((n) => {
+          // Badge de estado manual
+          let estadoBadge = '';
+          if (n.estado === 'activo') {
+            estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 text-xs font-bold text-emerald-300">🟢 Activo</span>`;
+          } else if (n.estado === 'demo') {
+            estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-violet-500/15 border border-violet-500/30 px-2.5 py-1 text-xs font-bold text-violet-300">🚀 En Demo</span>`;
+          } else {
+            estadoBadge = `<span class="inline-flex items-center gap-1.5 rounded-full bg-red-500/15 border border-red-500/30 px-2.5 py-1 text-xs font-bold text-red-300">🔴 Suspendido</span>`;
+          }
+
+          // Info de Plan y Cobranza
+          let planHtml = '';
+          if (n.modalidad_cobro === 'mensual') {
+            const venc = n.proximo_vencimiento_pago || '';
+            const isVencido = venc && venc < hoyStr;
+            planHtml = `
+              <div class="font-semibold text-white">🔄 Mensual · ${formatARS(n.precio_mensual || 35000)}</div>
+              <div class="text-xs ${isVencido ? 'text-amber-400 font-bold' : 'text-zinc-400'}">
+                ${
+                  venc
+                    ? isVencido
+                      ? `⚠️ Venció el ${venc} (Sigue online)`
+                      : `Próximo cobro: ${venc}`
+                    : 'Sin fecha asignada'
+                }
+              </div>
+            `;
+          } else if (n.modalidad_cobro === 'pago_unico') {
+            const labels: Record<string, string> = {
+              pendiente: '⏳ Pendiente de cobro',
+              sena_50: '🌗 Seña 50% cobrada',
+              pagado: '✅ Pagado 100%',
+            };
+            planHtml = `
+              <div class="font-semibold text-sky-300">💎 Pago Único · ${formatARS(n.monto_unico || 0)}</div>
+              <div class="text-xs text-zinc-400">${labels[n.estado_pago_unico] || 'Pago único'}</div>
+            `;
+          } else {
+            planHtml = `
+              <div class="font-semibold text-zinc-300">⚙️ Personalizado</div>
+              <div class="text-xs text-zinc-500">Acuerdo a medida</div>
+            `;
+          }
+
+          // Botón manual de Activar / Suspender
+          const toggleSuspendBtn =
+            n.estado === 'suspendido'
+              ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Reactivar Web</button>`
+              : `<button data-action="set-estado" data-id="${n.id}" data-estado="suspendido" class="rounded-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2.5 py-1 text-xs font-semibold text-red-300 cursor-pointer" title="Pausar sitio manualmente">Suspender</button>`;
+
+          const activateFromDemoBtn =
+            n.estado === 'demo'
+              ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Pasar a Activo</button>`
+              : '';
+
+          const ultimaDemo = n.ultima_visita_demo
+            ? new Date(n.ultima_visita_demo).toLocaleString('es-AR', {
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+            : 'Sin abrir aún';
+
+          rowsHtml.push(`
+            <tr class="hover:bg-zinc-900/90 transition">
+              <td class="py-4 px-4">
+                <div class="font-bold text-white">${n.nombre}</div>
+                <div class="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
+                  <code class="text-violet-300">${n.id}</code>
                   ${
-                    venc
-                      ? isVencido
-                        ? `⚠️ Venció el ${venc} (Sigue online)`
-                        : `Próximo cobro: ${venc}`
-                      : 'Sin fecha asignada'
+                    n.url_sitio
+                      ? `<a href="${n.url_sitio}" target="_blank" rel="noopener" class="underline hover:text-white">Abrir web ↗</a>`
+                      : ''
                   }
                 </div>
-              `;
-            } else if (n.modalidad_cobro === 'pago_unico') {
-              const labels: Record<string, string> = {
-                pendiente: '⏳ Pendiente de cobro',
-                sena_50: '🌗 Seña 50% cobrada',
-                pagado: '✅ Pagado 100%',
-              };
-              planHtml = `
-                <div class="font-semibold text-sky-300">💎 Pago Único · ${formatARS(n.monto_unico || 0)}</div>
-                <div class="text-xs text-zinc-400">${labels[n.estado_pago_unico] || 'Pago único'}</div>
-              `;
-            } else {
-              planHtml = `
-                <div class="font-semibold text-zinc-300">⚙️ Personalizado</div>
-                <div class="text-xs text-zinc-500">Acuerdo a medida</div>
-              `;
-            }
+              </td>
+              <td class="py-4 px-4">
+                <div class="flex flex-wrap items-center gap-2">
+                  ${estadoBadge}
+                  ${activateFromDemoBtn}
+                  ${toggleSuspendBtn}
+                </div>
+              </td>
+              <td class="py-4 px-4">${planHtml}</td>
+              <td class="py-4 px-4">
+                <div class="font-bold text-white">${n.visitas_demo || 0} aperturas</div>
+                <div class="text-xs text-zinc-500">${ultimaDemo}</div>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <div class="inline-flex flex-wrap items-center justify-end gap-1.5">
+                  <button data-action="quick-pay" data-id="${n.id}" class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1.5 text-xs font-semibold text-emerald-300 cursor-pointer" title="Registrar pago de este cliente">
+                    💸 Cobrar
+                  </button>
+                  <button data-action="view-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Ver panel y estadísticas del cliente">
+                    📊 Panel
+                  </button>
+                  <button data-action="edit-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Editar plan y datos">
+                    ✏️ Editar
+                  </button>
+                  <button data-action="copy-env" data-id="${n.id}" class="rounded-lg border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 px-2.5 py-1.5 text-xs font-semibold text-violet-300 cursor-pointer" title="Copiar variables .env para su Astro">
+                    📋 .env
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `);
 
-            // Botón manual de Activar / Suspender
-            const toggleSuspendBtn =
-              n.estado === 'suspendido'
-                ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Reactivar Web</button>`
-                : `<button data-action="set-estado" data-id="${n.id}" data-estado="suspendido" class="rounded-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2.5 py-1 text-xs font-semibold text-red-300 cursor-pointer" title="Pausar sitio manualmente">Suspender</button>`;
-
-            const activateFromDemoBtn =
-              n.estado === 'demo'
-                ? `<button data-action="set-estado" data-id="${n.id}" data-estado="activo" class="rounded-lg border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-2.5 py-1 text-xs font-semibold text-emerald-300 cursor-pointer">Pasar a Activo</button>`
-                : '';
-
-            const ultimaDemo = n.ultima_visita_demo
-              ? new Date(n.ultima_visita_demo).toLocaleString('es-AR', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })
-              : 'Sin abrir aún';
-
-            return `
-              <tr class="hover:bg-zinc-900/90 transition">
-                <td class="py-4 px-4">
-                  <div class="font-bold text-white">${n.nombre}</div>
+          mobileCardsHtml.push(`
+            <div class="rounded-2xl border border-zinc-800/80 bg-zinc-900/70 p-4 space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="font-bold text-white text-base truncate">${n.nombre}</div>
                   <div class="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
-                    <code class="text-violet-300">${n.id}</code>
+                    <code class="text-violet-300 truncate">${n.id}</code>
                     ${
                       n.url_sitio
-                        ? `<a href="${n.url_sitio}" target="_blank" rel="noopener" class="underline hover:text-white">Abrir web ↗</a>`
+                        ? `<a href="${n.url_sitio}" target="_blank" rel="noopener" class="underline hover:text-white shrink-0">Abrir web ↗</a>`
                         : ''
                     }
                   </div>
-                </td>
-                <td class="py-4 px-4">
-                  <div class="flex flex-wrap items-center gap-2">
-                    ${estadoBadge}
-                    ${activateFromDemoBtn}
-                    ${toggleSuspendBtn}
-                  </div>
-                </td>
-                <td class="py-4 px-4">${planHtml}</td>
-                <td class="py-4 px-4">
-                  <div class="font-bold text-white">${n.visitas_demo || 0} aperturas</div>
-                  <div class="text-xs text-zinc-500">${ultimaDemo}</div>
-                </td>
-                <td class="py-4 px-4 text-right">
-                  <div class="inline-flex flex-wrap items-center justify-end gap-1.5">
-                    <button data-action="quick-pay" data-id="${n.id}" class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-1.5 text-xs font-semibold text-emerald-300 cursor-pointer" title="Registrar pago de este cliente">
-                      💸 Cobrar
-                    </button>
-                    <button data-action="view-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Ver panel y estadísticas del cliente">
-                      📊 Panel
-                    </button>
-                    <button data-action="edit-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer" title="Editar plan y datos">
-                      ✏️ Editar
-                    </button>
-                    <button data-action="copy-env" data-id="${n.id}" class="rounded-lg border border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20 px-2.5 py-1.5 text-xs font-semibold text-violet-300 cursor-pointer" title="Copiar variables .env para su Astro">
-                      📋 .env
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            `;
-          })
-          .join('');
+                </div>
+                <div class="shrink-0">${estadoBadge}</div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 rounded-xl bg-zinc-950/60 border border-zinc-800/60 p-3 text-xs">
+                <div>${planHtml}</div>
+                <div class="border-l border-zinc-800 pl-3">
+                  <div class="font-semibold text-white">👁️ ${n.visitas_demo || 0} aperturas</div>
+                  <div class="text-[11px] text-zinc-500 mt-0.5">${ultimaDemo}</div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  ${activateFromDemoBtn}
+                  ${toggleSuspendBtn}
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <button data-action="quick-pay" data-id="${n.id}" class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1.5 text-xs font-semibold text-emerald-300 cursor-pointer">
+                    💸 Cobrar
+                  </button>
+                  <button data-action="view-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer">
+                    📊 Panel
+                  </button>
+                  <button data-action="edit-client" data-id="${n.id}" class="rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 cursor-pointer">
+                    ✏️ Editar
+                  </button>
+                  <button data-action="copy-env" data-id="${n.id}" class="rounded-lg border border-violet-500/30 bg-violet-500/10 px-2.5 py-1.5 text-xs font-semibold text-violet-300 cursor-pointer">
+                    📋 .env
+                  </button>
+                </div>
+              </div>
+            </div>
+          `);
+        });
+
+        tbody.innerHTML = rowsHtml.join('');
+        if (mobileList) {
+          mobileList.innerHTML = mobileCardsHtml.join('');
+        }
       }
 
       function renderPagosTable() {
@@ -1335,14 +1563,416 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
       }
 
       // =======================================================================
-      // RENDERIZADO VISTA CLIENTE (ESTADÍSTICAS UTM + CONFIG)
+      // RENDERIZADO VISTA CLIENTE (MÉTRICAS MENSUALES + ENLACES UTM + CONFIG)
       // =======================================================================
+      const MONTH_NAMES_ES = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ];
+
+      function getMonthKey(dateStrOrIso: string): string {
+        if (!dateStrOrIso) return '';
+        const d = new Date(dateStrOrIso);
+        if (isNaN(d.getTime())) return String(dateStrOrIso).slice(0, 7);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        return `${y}-${m}`;
+      }
+
+      function formatMonthLabel(monthKey: string, isCurrent = false): string {
+        const [y, m] = monthKey.split('-');
+        const idx = Number(m) - 1;
+        const name = MONTH_NAMES_ES[idx] || monthKey;
+        return `${name} ${y}${isCurrent ? ' (Mes actual)' : ''}`;
+      }
+
+      function getPreviousMonthKey(monthKey: string): string {
+        const [yStr, mStr] = monthKey.split('-');
+        let y = Number(yStr);
+        let m = Number(mStr) - 1;
+        if (m < 1) {
+          m = 12;
+          y -= 1;
+        }
+        return `${y}-${String(m).padStart(2, '0')}`;
+      }
+
+      function getLastNMonthKeys(count: number): string[] {
+        const result: string[] = [];
+        const now = new Date();
+        for (let i = 0; i < count; i++) {
+          const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          result.push(`${y}-${m}`);
+        }
+        return result;
+      }
+
+      function computeMetricsForEvents(evs: Record<string, any>[]) {
+        const vistas = evs.filter((e) => e.tipo === 'vista_pagina');
+        const clicsWpp = evs.filter((e) => e.tipo === 'click_whatsapp' || e.tipo === 'formulario_whatsapp');
+        const totalVistas = Math.max(vistas.length, clicsWpp.length);
+        const convRate = totalVistas > 0 ? Math.round((clicsWpp.length / totalVistas) * 100) : 0;
+        return {
+          vistas: totalVistas,
+          clics: clicsWpp.length,
+          convRate,
+          clicsEvents: clicsWpp,
+        };
+      }
+
+      function applyDiffBadge(
+        badgeEl: HTMLElement | null,
+        prevEl: HTMLElement | null,
+        currentVal: number,
+        prevVal: number,
+        prevLabelText: string,
+        isPercentagePoint = false
+      ) {
+        if (!badgeEl || !prevEl) return;
+        prevEl.textContent = prevLabelText;
+
+        if (prevVal === 0 && currentVal === 0) {
+          badgeEl.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-zinc-800 text-zinc-400';
+          badgeEl.textContent = '0% vs. mes ant.';
+          return;
+        }
+
+        if (prevVal === 0 && currentVal > 0) {
+          badgeEl.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          badgeEl.textContent = `+100% vs. mes ant.`;
+          return;
+        }
+
+        const diffPct = isPercentagePoint
+          ? currentVal - prevVal
+          : Math.round(((currentVal - prevVal) / prevVal) * 100);
+
+        if (diffPct > 0) {
+          badgeEl.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+          badgeEl.textContent = `+${diffPct}% vs. mes ant.`;
+        } else if (diffPct < 0) {
+          badgeEl.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30';
+          badgeEl.textContent = `${diffPct}% vs. mes ant.`;
+        } else {
+          badgeEl.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-zinc-800 text-zinc-300';
+          badgeEl.textContent = `Igual al mes ant.`;
+        }
+      }
+
+      function renderClientMetricsByPeriod(selectedPeriod: string) {
+        const isHistorico = selectedPeriod === 'historico';
+        const filteredEvs = isHistorico
+          ? clientEventsCache
+          : clientEventsCache.filter((e) => getMonthKey(e.created_at) === selectedPeriod);
+
+        const currentMetrics = computeMetricsForEvents(filteredEvs);
+
+        (document.getElementById('client-kpi-visits') as HTMLElement).textContent = String(currentMetrics.vistas);
+        (document.getElementById('client-kpi-wpp') as HTMLElement).textContent = String(currentMetrics.clics);
+        (document.getElementById('client-kpi-conv') as HTMLElement).textContent = `${currentMetrics.convRate}%`;
+
+        const visitsBadge = document.getElementById('client-kpi-visits-diff');
+        const visitsPrev = document.getElementById('client-kpi-visits-prev');
+        const wppBadge = document.getElementById('client-kpi-wpp-diff');
+        const wppPrev = document.getElementById('client-kpi-wpp-prev');
+        const convBadge = document.getElementById('client-kpi-conv-diff');
+        const convPrev = document.getElementById('client-kpi-conv-prev');
+
+        if (isHistorico) {
+          [visitsBadge, wppBadge, convBadge].forEach((b) => {
+            if (b) {
+              b.className = 'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-zinc-800 text-zinc-400';
+              b.textContent = 'Acumulado total';
+            }
+          });
+          if (visitsPrev) visitsPrev.textContent = 'Todo el historial registrado';
+          if (wppPrev) wppPrev.textContent = 'Todo el historial registrado';
+          if (convPrev) convPrev.textContent = 'Promedio histórico general';
+        } else {
+          const prevKey = getPreviousMonthKey(selectedPeriod);
+          const prevEvs = clientEventsCache.filter((e) => getMonthKey(e.created_at) === prevKey);
+          const prevMetrics = computeMetricsForEvents(prevEvs);
+          const [py, pm] = prevKey.split('-');
+          const prevMonthShort = `${MONTH_NAMES_ES[Number(pm) - 1] || prevKey} ${py}`;
+
+          applyDiffBadge(
+            visitsBadge,
+            visitsPrev,
+            currentMetrics.vistas,
+            prevMetrics.vistas,
+            `${prevMonthShort}: ${prevMetrics.vistas} visitas`
+          );
+          applyDiffBadge(
+            wppBadge,
+            wppPrev,
+            currentMetrics.clics,
+            prevMetrics.clics,
+            `${prevMonthShort}: ${prevMetrics.clics} consultas`
+          );
+          applyDiffBadge(
+            convBadge,
+            convPrev,
+            currentMetrics.convRate,
+            prevMetrics.convRate,
+            `${prevMonthShort}: ${prevMetrics.convRate}% conversión`,
+            true
+          );
+        }
+
+        // Renderizar comparativa de los últimos 4 meses
+        const chartEl = document.getElementById('client-monthly-chart');
+        if (chartEl) {
+          const last4 = getLastNMonthKeys(4).reverse(); // De más antiguo a actual
+          const monthStats = last4.map((mKey) => {
+            const evsMonth = clientEventsCache.filter((e) => getMonthKey(e.created_at) === mKey);
+            const m = computeMetricsForEvents(evsMonth);
+            const [y, mm] = mKey.split('-');
+            return {
+              key: mKey,
+              label: `${MONTH_NAMES_ES[Number(mm) - 1]?.slice(0, 3) || mKey} ${y}`,
+              fullLabel: `${MONTH_NAMES_ES[Number(mm) - 1] || mKey} ${y}`,
+              ...m,
+            };
+          });
+
+          const maxVistas = Math.max(1, ...monthStats.map((ms) => ms.vistas));
+
+          chartEl.innerHTML = monthStats
+            .map((ms) => {
+              const isSelected = ms.key === selectedPeriod;
+              const vistasWidth = Math.max(6, Math.round((ms.vistas / maxVistas) * 100));
+              const clicsWidth = ms.vistas > 0 ? Math.max(4, Math.round((ms.clics / maxVistas) * 100)) : 0;
+              return `
+                <div class="rounded-xl border ${
+                  isSelected
+                    ? 'border-violet-500/60 bg-violet-500/10'
+                    : 'border-zinc-800/80 bg-zinc-950/60'
+                } p-3.5 transition">
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="text-xs font-bold ${isSelected ? 'text-violet-300' : 'text-white'}">${ms.fullLabel}</span>
+                    ${
+                      isSelected
+                        ? `<span class="rounded bg-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-300">Seleccionado</span>`
+                        : ''
+                    }
+                  </div>
+                  <div class="space-y-2">
+                    <div>
+                      <div class="flex justify-between text-[11px] text-zinc-400 mb-1">
+                        <span>Visitas</span>
+                        <strong class="text-white">${ms.vistas}</strong>
+                      </div>
+                      <div class="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-violet-500" style="width: ${vistasWidth}%"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between text-[11px] text-zinc-400 mb-1">
+                        <span>WhatsApp</span>
+                        <strong class="text-emerald-400">${ms.clics} (${ms.convRate}%)</strong>
+                      </div>
+                      <div class="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-emerald-400" style="width: ${clicsWidth}%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        // Agrupar orígenes (Instagram, Google, Facebook, TikTok, Directo) en el período seleccionado
+        const origenesMap: Record<string, { vistas: number; clics: number }> = {
+          Instagram: { vistas: 0, clics: 0 },
+          Google: { vistas: 0, clics: 0 },
+          Facebook: { vistas: 0, clics: 0 },
+          Directo: { vistas: 0, clics: 0 },
+        };
+
+        filteredEvs.forEach((ev) => {
+          const org = ev.origen || 'Directo';
+          if (!origenesMap[org]) origenesMap[org] = { vistas: 0, clics: 0 };
+          if (ev.tipo === 'vista_pagina') {
+            origenesMap[org].vistas += 1;
+          } else {
+            origenesMap[org].clics += 1;
+          }
+        });
+
+        const barsContainer = document.getElementById('client-origins-bars');
+        if (barsContainer) {
+          const entries = Object.entries(origenesMap).sort(
+            (a, b) => b[1].vistas + b[1].clics - (a[1].vistas + a[1].clics)
+          );
+          barsContainer.innerHTML = entries
+            .map(([origen, counts]) => {
+              const totalCanal = Math.max(counts.vistas, counts.clics);
+              const pct =
+                currentMetrics.vistas > 0
+                  ? Math.min(100, Math.round((totalCanal / currentMetrics.vistas) * 100))
+                  : 0;
+              return `
+                <div>
+                  <div class="flex flex-wrap items-center justify-between gap-1 text-xs mb-1.5">
+                    <span class="font-bold text-white">${origen}</span>
+                    <span class="text-zinc-400">${totalCanal} visitas · <strong class="text-emerald-400">${counts.clics} consultas WhatsApp</strong> (${pct}%)</span>
+                  </div>
+                  <div class="w-full h-2.5 rounded-full bg-zinc-800 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-emerald-400" style="width: ${Math.max(pct, 4)}%"></div>
+                  </div>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        // Lista de últimos clics a WhatsApp del período seleccionado
+        const recentEl = document.getElementById('client-recent-events');
+        if (recentEl) {
+          if (currentMetrics.clicsEvents.length === 0) {
+            recentEl.innerHTML = `<p class="text-xs text-zinc-500 py-4">No hay consultas registradas en este período.</p>`;
+          } else {
+            recentEl.innerHTML = currentMetrics.clicsEvents
+              .slice(0, 12)
+              .map((ev) => {
+                const fecha = ev.created_at
+                  ? new Date(ev.created_at).toLocaleString('es-AR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })
+                  : '';
+                return `
+                  <div class="rounded-xl border border-zinc-800/80 bg-zinc-950/60 p-3 flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <span class="inline-block rounded-md bg-emerald-500/15 text-emerald-300 px-2 py-0.5 text-[11px] font-bold">
+                        Origen: ${ev.origen || 'Directo'}
+                      </span>
+                      <p class="text-xs text-zinc-200 font-medium mt-1 break-words">${ev.detalle || 'Clic en botón de WhatsApp'}</p>
+                    </div>
+                    <span class="text-[11px] text-zinc-500 shrink-0">${fecha}</span>
+                  </div>
+                `;
+              })
+              .join('');
+          }
+        }
+      }
+
+      function renderClientUtmTab(negocio: Record<string, any>) {
+        const baseUrl = (negocio?.url_sitio || window.location.origin).replace(/\/$/, '');
+        const utmListEl = document.getElementById('client-utm-cards-list');
+        if (utmListEl) {
+          const channels = [
+            {
+              title: 'Instagram (Biografía)',
+              subtitle: 'Ideal para pegar en el enlace principal del perfil de Instagram.',
+              url: `${baseUrl}/?utm_source=instagram&utm_medium=bio`,
+            },
+            {
+              title: 'Instagram (Historias y Reels)',
+              subtitle: 'Usar en stickers de enlace en historias o campañas de Reels.',
+              url: `${baseUrl}/?utm_source=instagram&utm_medium=stories`,
+            },
+            {
+              title: 'Facebook (Página y Publicaciones)',
+              subtitle: 'Para el botón de sitio web de la página o posteos promocionados.',
+              url: `${baseUrl}/?utm_source=facebook&utm_medium=social`,
+            },
+            {
+              title: 'TikTok (Perfil)',
+              subtitle: 'Para medir las visitas y consultas que llegan desde TikTok.',
+              url: `${baseUrl}/?utm_source=tiktok&utm_medium=bio`,
+            },
+            {
+              title: 'Google Perfil de Negocio (Google Maps)',
+              subtitle: 'Pegar en el campo "Sitio web" de tu ficha de Google Maps.',
+              url: `${baseUrl}/?utm_source=google&utm_medium=maps`,
+            },
+          ];
+
+          utmListEl.innerHTML = channels
+            .map(
+              (c) => `
+              <div class="rounded-xl border border-zinc-800/90 bg-zinc-950/70 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="min-w-0 flex-1">
+                  <div class="text-sm font-bold text-white">${c.title}</div>
+                  <p class="text-xs text-zinc-400 mt-0.5">${c.subtitle}</p>
+                  <div class="mt-2 rounded-lg bg-zinc-900 border border-zinc-800 px-3 py-1.5 font-mono text-xs text-violet-300 truncate">
+                    ${c.url}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  data-copy-full-utm="${c.url}"
+                  class="utm-copy-direct-btn shrink-0 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 px-4 py-2.5 text-xs font-semibold text-white transition cursor-pointer text-center"
+                >
+                  Copiar enlace
+                </button>
+              </div>
+            `
+            )
+            .join('');
+        }
+
+        updateCustomUtmPreview();
+      }
+
+      function updateCustomUtmPreview() {
+        const baseUrl = (selectedClientNegocio?.url_sitio || window.location.origin).replace(/\/$/, '');
+        const sourceInput = document.getElementById('utm-custom-source') as HTMLSelectElement | null;
+        const campInput = document.getElementById('utm-custom-campaign') as HTMLInputElement | null;
+        const previewEl = document.getElementById('utm-custom-preview');
+        if (!sourceInput || !previewEl) return;
+
+        const src = sourceInput.value || 'instagram';
+        const rawCamp = (campInput?.value || '')
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9-_]/g, '-');
+
+        const url = rawCamp
+          ? `${baseUrl}/?utm_source=${src}&utm_medium=social&utm_campaign=${encodeURIComponent(rawCamp)}`
+          : `${baseUrl}/?utm_source=${src}&utm_medium=social`;
+
+        previewEl.textContent = url;
+      }
+
+      function switchClientTab(tab: string) {
+        document.querySelectorAll<HTMLButtonElement>('.client-tab-btn').forEach((b) => {
+          const isTarget = b.dataset.clientTab === tab;
+          b.classList.toggle('bg-violet-600', isTarget);
+          b.classList.toggle('text-white', isTarget);
+          b.classList.toggle('text-zinc-300', !isTarget);
+        });
+
+        document.getElementById('client-panel-stats')?.classList.toggle('hidden', tab !== 'stats');
+        document.getElementById('client-panel-utm')?.classList.toggle('hidden', tab !== 'utm');
+        document.getElementById('client-panel-config')?.classList.toggle('hidden', tab !== 'config');
+      }
+
       async function openClientView(negocio: Record<string, any>) {
         selectedClientNegocio = negocio;
         document.getElementById('view-login')?.classList.add('hidden');
         document.getElementById('view-superadmin')?.classList.add('hidden');
         document.getElementById('admin-topbar')?.classList.remove('hidden');
         document.getElementById('view-cliente')?.classList.remove('hidden');
+
+        switchClientTab('stats');
 
         const backBtn = document.getElementById('btn-back-to-crm');
         if (backBtn) {
@@ -1356,7 +1986,7 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
         if (!isMockMode && SUPABASE_URL && SUPABASE_KEY) {
           try {
             const res = await fetch(
-              `${SUPABASE_URL}/rest/v1/eventos_conversion?negocio_id=eq.${encodeURIComponent(negocio.id)}&order=created_at.desc&limit=500`,
+              `${SUPABASE_URL}/rest/v1/eventos_conversion?negocio_id=eq.${encodeURIComponent(negocio.id)}&order=created_at.desc&limit=1000`,
               { headers: sbHeaders() }
             );
             if (res.ok) {
@@ -1366,87 +1996,21 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
             // fallback
           }
         }
+        clientEventsCache = evs;
 
-        const vistas = evs.filter((e) => e.tipo === 'vista_pagina');
-        const clicsWpp = evs.filter((e) => e.tipo === 'click_whatsapp' || e.tipo === 'formulario_whatsapp');
-        const totalVistas = Math.max(vistas.length, clicsWpp.length);
-        const convRate = totalVistas > 0 ? Math.round((clicsWpp.length / totalVistas) * 100) : 0;
-
-        (document.getElementById('client-kpi-visits') as HTMLElement).textContent = String(totalVistas);
-        (document.getElementById('client-kpi-wpp') as HTMLElement).textContent = String(clicsWpp.length);
-        (document.getElementById('client-kpi-conv') as HTMLElement).textContent = `${convRate}%`;
-
-        // Agrupar orígenes (Instagram, Google, Facebook, TikTok, Directo)
-        const origenesMap: Record<string, { vistas: number; clics: number }> = {
-          Instagram: { vistas: 0, clics: 0 },
-          Google: { vistas: 0, clics: 0 },
-          Facebook: { vistas: 0, clics: 0 },
-          Directo: { vistas: 0, clics: 0 },
-        };
-
-        evs.forEach((ev) => {
-          const org = ev.origen || 'Directo';
-          if (!origenesMap[org]) origenesMap[org] = { vistas: 0, clics: 0 };
-          if (ev.tipo === 'vista_pagina') {
-            origenesMap[org].vistas += 1;
-          } else {
-            origenesMap[org].clics += 1;
-          }
-        });
-
-        const barsContainer = document.getElementById('client-origins-bars');
-        if (barsContainer) {
-          const entries = Object.entries(origenesMap).sort((a, b) => b[1].vistas + b[1].clics - (a[1].vistas + a[1].clics));
-          barsContainer.innerHTML = entries
-            .map(([origen, counts]) => {
-              const pct = totalVistas > 0 ? Math.min(100, Math.round((Math.max(counts.vistas, counts.clics) / totalVistas) * 100)) : 0;
-              return `
-                <div>
-                  <div class="flex items-center justify-between text-xs mb-1">
-                    <span class="font-bold text-white">${origen}</span>
-                    <span class="text-zinc-400">${Math.max(counts.vistas, counts.clics)} visitas · <strong class="text-emerald-400">${counts.clics} clics a WhatsApp</strong> (${pct}%)</span>
-                  </div>
-                  <div class="w-full h-2.5 rounded-full bg-zinc-800 overflow-hidden">
-                    <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-emerald-400" style="width: ${Math.max(pct, 4)}%"></div>
-                  </div>
-                </div>
-              `;
-            })
-            .join('');
+        // Poblar selector de meses (últimos 6 meses + Histórico)
+        const monthSelect = document.getElementById('client-month-select') as HTMLSelectElement | null;
+        const last6Months = getLastNMonthKeys(6);
+        if (monthSelect) {
+          monthSelect.innerHTML =
+            last6Months
+              .map((mKey, idx) => `<option value="${mKey}">${formatMonthLabel(mKey, idx === 0)}</option>`)
+              .join('') + `<option value="historico">Histórico completo</option>`;
+          monthSelect.value = last6Months[0];
         }
 
-        // Lista de últimos clics a WhatsApp
-        const recentEl = document.getElementById('client-recent-events');
-        if (recentEl) {
-          if (clicsWpp.length === 0) {
-            recentEl.innerHTML = `<p class="text-xs text-zinc-500 py-4">Aún no hay clics registrados.</p>`;
-          } else {
-            recentEl.innerHTML = clicsWpp
-              .slice(0, 12)
-              .map((ev) => {
-                const fecha = ev.created_at
-                  ? new Date(ev.created_at).toLocaleString('es-AR', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })
-                  : '';
-                return `
-                  <div class="rounded-xl border border-zinc-800/80 bg-zinc-950/60 p-3 flex items-start justify-between gap-3">
-                    <div>
-                      <span class="inline-block rounded-md bg-emerald-500/15 text-emerald-300 px-2 py-0.5 text-[11px] font-bold">
-                        Desde ${ev.origen || 'Directo'}
-                      </span>
-                      <p class="text-xs text-zinc-200 font-medium mt-1">${ev.detalle || 'Clic en botón de WhatsApp'}</p>
-                    </div>
-                    <span class="text-[11px] text-zinc-500 shrink-0">${fecha}</span>
-                  </div>
-                `;
-              })
-              .join('');
-          }
-        }
+        renderClientMetricsByPeriod(last6Months[0]);
+        renderClientUtmTab(negocio);
 
         // Rellenar formulario de configuración del cliente
         (document.getElementById('cfg-banner-activo') as HTMLInputElement).checked = Boolean(negocio.banner_activo);
@@ -1653,8 +2217,8 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
         });
       });
 
-      // Acciones en la tabla de Negocios
-      document.getElementById('crm-tbody-negocios')?.addEventListener('click', async (e) => {
+      // Acciones en la tabla / tarjetas mobile de Negocios
+      document.getElementById('crm-panel-negocios')?.addEventListener('click', async (e) => {
         const btn = (e.target as HTMLElement).closest('button[data-action]') as HTMLButtonElement | null;
         if (!btn) return;
         const action = btn.dataset.action;
@@ -1935,31 +2499,48 @@ const superAdminEmail = import.meta.env.PUBLIC_SUPERADMIN_EMAIL || 'orion@admin.
         showToast(`Cobro de ${formatARS(monto)} registrado`);
       });
 
-      // Tabs Vista Cliente (Estadísticas vs Configuración)
+      // Tabs Vista Cliente (Métricas vs Enlaces UTM vs Configuración)
       document.querySelectorAll<HTMLButtonElement>('.client-tab-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          const tab = btn.dataset.clientTab;
-          document.querySelectorAll('.client-tab-btn').forEach((b) => {
-            b.classList.remove('bg-violet-600', 'text-white');
-            b.classList.add('bg-zinc-800', 'text-zinc-300');
-          });
-          btn.classList.add('bg-violet-600', 'text-white');
-          btn.classList.remove('bg-zinc-800', 'text-zinc-300');
-
-          document.getElementById('client-panel-stats')?.classList.toggle('hidden', tab !== 'stats');
-          document.getElementById('client-panel-config')?.classList.toggle('hidden', tab !== 'config');
+          const tab = btn.dataset.clientTab || 'stats';
+          switchClientTab(tab);
         });
       });
 
-      // Botones Copiar Link con UTM en Vista Cliente
-      document.querySelectorAll<HTMLButtonElement>('.utm-copy-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const source = btn.dataset.copyUtm || 'instagram';
-          const baseUrl = (selectedClientNegocio?.url_sitio || window.location.origin).replace(/\/$/, '');
-          const finalUrl = `${baseUrl}/?utm_source=${source}&utm_medium=social`;
-          navigator.clipboard.writeText(finalUrl);
-          showToast(`Link con tracking de ${source.toUpperCase()} copiado: ${finalUrl}`);
-        });
+      document.getElementById('btn-goto-utm-tab')?.addEventListener('click', () => {
+        switchClientTab('utm');
+      });
+
+      // Selector de período mensual en Vista Cliente
+      document.getElementById('client-month-select')?.addEventListener('change', (e) => {
+        const val = (e.target as HTMLSelectElement).value;
+        renderClientMetricsByPeriod(val);
+      });
+
+      // Copiar enlaces en la pestaña Enlaces UTM
+      document.getElementById('client-utm-cards-list')?.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('button[data-copy-full-utm]') as HTMLButtonElement | null;
+        if (!btn) return;
+        const url = btn.dataset.copyFullUtm || '';
+        if (!url) return;
+        navigator.clipboard.writeText(url);
+        const origText = btn.textContent;
+        btn.textContent = 'Enlace copiado';
+        setTimeout(() => {
+          btn.textContent = origText;
+        }, 2000);
+        showToast(`Enlace copiado al portapapeles`);
+      });
+
+      // Generador de UTM personalizado
+      document.getElementById('utm-custom-source')?.addEventListener('change', updateCustomUtmPreview);
+      document.getElementById('utm-custom-campaign')?.addEventListener('input', updateCustomUtmPreview);
+      document.getElementById('btn-copy-custom-utm')?.addEventListener('click', () => {
+        const previewEl = document.getElementById('utm-custom-preview');
+        const url = previewEl?.textContent?.trim() || '';
+        if (!url) return;
+        navigator.clipboard.writeText(url);
+        showToast('Enlace de campaña copiado al portapapeles');
       });
 
       // Guardar Configuración en Vista Cliente
